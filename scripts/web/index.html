@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente de Dados do ERP</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #667085; --line: #e3e6eb;
+    --accent: #2f6fde; --accent-soft: #e8f0fd; --ok: #1a7f4b; --ok-soft: #e3f4ea;
+    --bad: #b42318; --bad-soft: #fdeceb; --warn: #9a6700; --warn-soft: #fff4d6;
+    --code: #f2f4f7; --bar: #2f6fde;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151b; --card: #1b1f27; --text: #e6e9ef; --muted: #98a2b3; --line: #2c323d;
+      --accent: #6c9cf0; --accent-soft: #1f2a3d; --ok: #4cc38a; --ok-soft: #173326;
+      --bad: #f97066; --bad-soft: #3a1c1a; --warn: #f5c451; --warn-soft: #3a3016;
+      --code: #232833; --bar: #6c9cf0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  h1 { font-size: 22px; margin: 0; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  select, textarea, button { font: inherit; color: inherit; }
+  select { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .grid { display: grid; grid-template-columns: 1fr 320px; gap: 16px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  textarea { width: 100%; min-height: 72px; resize: vertical; background: var(--bg); border: 1px solid var(--line);
+             border-radius: 8px; padding: 10px 12px; }
+  textarea:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .row { display: flex; gap: 10px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  button.primary { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 18px; cursor: pointer; font-weight: 600; }
+  button.primary:disabled { opacity: .6; cursor: wait; }
+  .hint { color: var(--muted); font-size: 13px; }
+  .lista { max-height: 430px; overflow: auto; margin: 8px -6px 0; }
+  .item { display: block; width: 100%; text-align: left; background: none; border: 0; border-radius: 8px; padding: 7px 6px; cursor: pointer; }
+  .item:hover { background: var(--accent-soft); }
+  .nivel { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 1px 6px; border-radius: 4px; margin-right: 6px; }
+  .facil { background: var(--ok-soft); color: var(--ok); }
+  .media { background: var(--warn-soft); color: var(--warn); }
+  .dificil { background: var(--bad-soft); color: var(--bad); }
+  h2 { font-size: 15px; margin: 0 0 4px; }
+  .badge { display: inline-block; font-weight: 700; font-size: 13px; padding: 3px 10px; border-radius: 999px; }
+  .b-ok { background: var(--ok-soft); color: var(--ok); }
+  .b-bad { background: var(--bad-soft); color: var(--bad); }
+  .b-info { background: var(--accent-soft); color: var(--accent); }
+  .metricas { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 13px; margin: 8px 0 12px; }
+  .metricas b { color: var(--text); font-weight: 600; }
+  pre { background: var(--code); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; word-break: break-word; margin: 6px 0;
+        font: 13px/1.45 ui-monospace, Consolas, monospace; }
+  .erro { color: var(--bad); font-size: 13px; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 13px; margin-top: 10px; }
+  .tabela { overflow: auto; max-height: 420px; border: 1px solid var(--line); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+  th { position: sticky; top: 0; background: var(--card); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .grafico { margin-top: 14px; }
+  .barra { display: grid; grid-template-columns: 180px 1fr 110px; gap: 8px; align-items: center; font-size: 13px; margin: 4px 0; }
+  .barra .rot { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .barra .trilho { background: var(--code); border-radius: 4px; height: 14px; }
+  .barra .cheio { background: var(--bar); border-radius: 4px; height: 14px; }
+  .barra .val { font-variant-numeric: tabular-nums; color: var(--muted); text-align: right; }
+  @media (max-width: 560px) { .barra { grid-template-columns: 90px 1fr 90px; } }
+  .grande { font-size: 34px; font-weight: 700; margin: 6px 0; font-variant-numeric: tabular-nums; }
+  .vazio { color: var(--muted); text-align: center; padding: 36px 0; }
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%;
+             display: inline-block; animation: g 1s linear infinite; vertical-align: -3px; margin-right: 6px; }
+  @keyframes g { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Assistente de Dados do ERP</h1>
+      <div class="sub">Pergunte em português. Um modelo de IA local gera o SQL, o MySQL executa e o resultado aparece aqui.</div>
+    </div>
+    <label class="hint">Modelo
+      <select id="modelo"><option>carregando...</option></select>
+    </label>
+  </header>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <textarea id="pergunta" placeholder="Ex.: Qual foi o faturamento de cada mês de 2026?"></textarea>
+        <div class="row">
+          <button class="primary" id="enviar">Perguntar</button>
+          <span class="hint">Ctrl+Enter envia. Escolha uma pergunta da lista ao lado para comparar com o gabarito.</span>
+        </div>
+      </div>
+      <div class="card" id="resultado"><div class="vazio">O resultado aparece aqui.</div></div>
+    </div>
+
+    <div class="card">
+      <h2>Perguntas do estudo</h2>
+      <div class="hint">30 perguntas com SQL-gabarito</div>
+      <div class="lista" id="lista"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let idSelecionado = null;
+
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ehNumero = v => v !== "" && v !== "NULL" && !isNaN(Number(v));
+const fmt = v => {
+  if (!ehNumero(v)) return esc(v);
+  const n = Number(v);
+  return Number.isInteger(n) && !String(v).includes(".") ? n.toLocaleString("pt-BR")
+       : n.toLocaleString("pt-BR", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+};
+
+async function iniciar() {
+  try {
+    const r = await (await fetch("/api/modelos")).json();
+    const sel = $("#modelo");
+    sel.innerHTML = (r.modelos || []).map(m => `<option>${esc(m)}</option>`).join("") || "<option>nenhum modelo</option>";
+    if (r.modelos.includes(r.padrao)) sel.value = r.padrao;
+    try { const salvo = localStorage.getItem("modelo"); if (salvo && r.modelos.includes(salvo)) sel.value = salvo; } catch (e) {}
+    sel.onchange = () => { try { localStorage.setItem("modelo", sel.value); } catch (e) {} };
+  } catch (e) { $("#modelo").innerHTML = "<option>Ollama fora do ar</option>"; }
+
+  const { perguntas } = await (await fetch("/api/perguntas")).json();
+  $("#lista").innerHTML = perguntas.map(p =>
+    `<button class="item" data-id="${p.id}" data-texto="${esc(p.pergunta)}">
+       <span class="nivel ${p.nivel}">${p.nivel === "facil" ? "fácil" : p.nivel === "media" ? "média" : "difícil"}</span>${esc(p.pergunta)}
+     </button>`).join("");
+  $("#lista").onclick = ev => {
+    const b = ev.target.closest(".item"); if (!b) return;
+    $("#pergunta").value = b.dataset.texto; idSelecionado = b.dataset.id; enviar();
+  };
+  $("#pergunta").oninput = () => { idSelecionado = null; };
+  $("#pergunta").onkeydown = ev => { if (ev.key === "Enter" && ev.ctrlKey) enviar(); };
+  $("#enviar").onclick = enviar;
+}
+
+async function enviar() {
+  const pergunta = $("#pergunta").value.trim();
+  if (!pergunta) return;
+  const btn = $("#enviar"); btn.disabled = true;
+  $("#resultado").innerHTML = `<div class="vazio"><span class="spinner"></span>O modelo está pensando...</div>`;
+  try {
+    const resp = await fetch("/api/perguntar", { method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ modelo: $("#modelo").value, pergunta, id: idSelecionado }) });
+    const r = await resp.json();
+    if (r.erro && !r.tentativas) throw new Error(r.erro);
+    mostrar(r);
+  } catch (e) {
+    $("#resultado").innerHTML = `<div class="erro">Erro: ${esc(e.message)}</div>`;
+  } finally { btn.disabled = false; }
+}
+
+function mostrar(r) {
+  let badge;
+  if ("acerto_final" in r) badge = r.acerto_final ? `<span class="badge b-ok">Acertou o gabarito</span>` : `<span class="badge b-bad">Errou o gabarito</span>`;
+  else badge = r.erro ? `<span class="badge b-bad">Não consegui responder</span>` : `<span class="badge b-info">Resposta</span>`;
+  const correcoes = r.tentativas.length - 1;
+
+  let h = `<div class="row" style="margin-top:0;justify-content:space-between"><h2>${esc(r.pergunta)}</h2>${badge}</div>
+    <div class="metricas">
+      <span>Tempo <b>${r.segundos_total.toFixed(1).replace(".", ",")} s</b></span>
+      <span>Velocidade <b>${r.tentativas.at(-1).tokens_s.toFixed(1).replace(".", ",")} tokens/s</b></span>
+      <span>Divisão <b>${esc(r.divisao)}</b></span>
+      <span>Autocorreções <b>${correcoes}</b></span>
+      <span>Modelo <b>${esc(r.modelo)}</b></span>
+    </div>`;
+
+  if (r.erro) {
+    h += `<div class="erro">O modelo não gerou um SQL válido depois de ${r.tentativas.length} tentativas. Último erro: ${esc(r.erro)}</div>`;
+  } else {
+    h += tabelaOuNumero(r.colunas, r.linhas) + grafico(r.colunas, r.linhas);
+  }
+
+  h += `<details ${r.erro ? "open" : ""}><summary>Ver o SQL gerado (${r.tentativas.length} tentativa${r.tentativas.length > 1 ? "s" : ""})</summary>` +
+    r.tentativas.map(t => `<div class="hint" style="margin-top:8px">Tentativa ${t.n} · ${String(t.segundos).replace(".", ",")} s</div>
+      <pre>${esc(t.sql || t.bruto)}</pre>${t.erro ? `<div class="erro">Erro: ${esc(t.erro)}</div>` : ""}`).join("") +
+    (r.gabarito && !r.acerto_final ? `<div class="hint" style="margin-top:8px">SQL-gabarito</div><pre>${esc(r.gabarito)}</pre>` : "") +
+    `</details>`;
+  $("#resultado").innerHTML = h;
+}
+
+function tabelaOuNumero(cols, linhas) {
+  if (!cols.length) return `<div class="vazio">A consulta não retornou linhas.</div>`;
+  if (linhas.length === 1 && cols.length === 1) return `<div class="hint">${esc(cols[0])}</div><div class="grande">${fmt(linhas[0][0])}</div>`;
+  if (!linhas.length) return `<div class="vazio">A consulta não retornou linhas.</div>`;
+  return `<div class="hint" style="margin-bottom:6px">${linhas.length} linha${linhas.length > 1 ? "s" : ""}</div><div class="tabela"><table>
+    <thead><tr>${cols.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+    <tbody>${linhas.map(l => `<tr>${l.map(v => `<td class="${ehNumero(v) ? "num" : ""}">${fmt(v)}</td>`).join("")}</tr>`).join("")}</tbody>
+  </table></div>`;
+}
+
+function grafico(cols, linhas) {
+  // barras quando há uma coluna de rótulo e a última coluna é numérica
+  if (cols.length < 2 || linhas.length < 2 || linhas.length > 30) return "";
+  const vi = cols.length - 1;
+  if (!linhas.every(l => ehNumero(l[vi]))) return "";
+  const vals = linhas.map(l => Number(l[vi])), max = Math.max(...vals.map(Math.abs)) || 1;
+  return `<div class="grafico"><div class="hint" style="margin-bottom:4px">${esc(cols[vi])}</div>` +
+    linhas.map((l, i) => `<div class="barra"><span class="rot" title="${esc(l[0])}">${esc(l.slice(0, vi).join(" · "))}</span>
+      <span class="trilho"><span class="cheio" style="display:block;width:${Math.max(1, Math.abs(vals[i]) / max * 100)}%"></span></span>
+      <span class="val">${fmt(l[vi])}</span></div>`).join("") + `</div>`;
+}
+
+iniciar();
+</script>
+</body>
+</html>

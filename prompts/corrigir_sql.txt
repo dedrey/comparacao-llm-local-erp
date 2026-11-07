@@ -1,0 +1,9 @@
+
+
+A consulta abaixo deu erro no MySQL.
+SQL com erro: {sql}
+Erro: {erro}
+{dica}
+
+Corrija a consulta usando somente as tabelas e colunas listadas acima. Responda APENAS com o SQL corrigido.
+SQL:
