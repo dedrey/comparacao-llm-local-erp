@@ -103,16 +103,29 @@ def modelos_instalados():
         return sorted(m["name"] for m in json.load(resp).get("models", []))
 
 
-def divisao_cpu_gpu(modelo):
+def percentual_gpu(modelo):
+    """Percentual do modelo carregado na GPU (ollama ps), ou None se não estiver carregado."""
     try:
         with urllib.request.urlopen(f"{OLLAMA}/api/ps", timeout=10) as resp:
             for m in json.load(resp).get("models", []):
                 if modelo in (m.get("name"), m.get("model")):
-                    gpu = 100 * m.get("size_vram", 0) / m["size"]
-                    return f"{100 - gpu:.0f}% CPU / {gpu:.0f}% GPU"
+                    return 100 * m.get("size_vram", 0) / m["size"]
     except OSError:
         pass
-    return "desconhecida"
+    return None
+
+
+def divisao_cpu_gpu(modelo):
+    gpu = percentual_gpu(modelo)
+    return "desconhecida" if gpu is None else f"{100 - gpu:.0f}% CPU / {gpu:.0f}% GPU"
+
+
+def descarregar(modelo):
+    """Tira o modelo da memória (keep_alive 0), para o próximo começar com a GPU livre."""
+    try:
+        _post("/api/generate", {"model": modelo, "keep_alive": 0}, timeout=60)
+    except OSError:
+        pass
 
 
 # ------------------------------------------------------------------ SQL

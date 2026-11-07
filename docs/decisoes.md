@@ -78,3 +78,9 @@ Foi incluído por ser treinado para código e SQL e caber na GPU (1,9GB). Nas 30
 A dica de apelido recuperou as perguntas 17 e 25, que antes falhavam nas 3 tentativas.
 
 O llama rodou com uma versão anterior do prompt, então os números não são diretamente comparáveis. A comparação oficial será feita pelo script de benchmark, com o prompt congelado e 3 a 5 rodadas.
+
+## 11. Timeout conta como erro do modelo
+
+Na 1ª rodada completa (07/11/2026), o `qwen2.5-coder:3b` não terminou a resposta da pergunta 44 em 600 s em nenhuma das 3 rodadas: o modelo entrou em repetição e não parou de gerar. O Ollama e o MySQL estavam no ar, então não é falha de infraestrutura.
+
+Esses casos contam como erro do modelo: nota 0, acerto 0 e tempo de 600 s, com `TIMEOUT:` na coluna `erro`. Não foi imposto um limite de tokens por resposta, porque isso mudaria a configuração já usada e obrigaria a rodar tudo de novo. As 3 linhas do CSV de 07/11 foram corrigidas, e o `benchmark.py` já grava assim.

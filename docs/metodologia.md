@@ -68,7 +68,34 @@ Os gabaritos foram conferidos no banco: todos executam, nenhum volta vazio e os 
 
 Os gráficos principais são boxplots de tempo por modelo e barras de acerto por nível. Tudo é gerado por `scripts/analise.py` em `resultados/tabelas/` e `resultados/graficos/`.
 
+## Nota das tarefas sem SQL
+
+A nota é automática e reproduzível, calculada a partir da coluna `pontos_chave` do CSV:
+
+- `;` separa os itens que a resposta precisa conter, e `|` separa as formas aceitas de cada item.
+- Antes de comparar, a resposta é normalizada: fica em minúsculo, sem acento e sem separadores entre dígitos. Assim, "R$ 99.079,88" vira "9907988".
+- Ids curtos (até 3 dígitos) precisam aparecer isolados. Números longos são aceitos com casas decimais depois.
+- **Interpretação e resumo**: a nota é a fração dos itens encontrados (0 a 1).
+- **Anomalia com ids** (perguntas 43, 44 e 45): a nota é o F1 entre os ids citados e os ids anômalos. Os candidatos são os ids da 1ª coluna da tabela, e números seguidos de "%" não contam. Quem lista a tabela inteira cita muitos ids normais e tira nota baixa (no teste, 0,15 em vez de 1).
+- **Acerto (0/1)**: só quando a nota é 1.
+
+Limitação: a checagem por palavras-chave não avalia a qualidade do texto. Se der tempo, uma amostra das respostas pode ser avaliada à mão para conferir.
+
+## Como rodar o benchmark
+
+```bash
+python scripts/benchmark.py                       # qwen2.5-coder:3b e llama3.2:3b, 3 rodadas, 45 perguntas
+python scripts/benchmark.py --modelos phi4-mini --rodadas 5
+python scripts/benchmark.py --perguntas 1,13,31 --rodadas 1   # teste rápido
+```
+
+- Cada modelo é aquecido com uma chamada que não entra no resultado. Depois roda as rodadas e é descarregado da memória antes do próximo.
+- Cada execução vira uma linha em `resultados/brutos/benchmark_<data>.csv`, gravada na hora. Se o benchmark for interrompido, o que já rodou fica salvo.
+- Colunas: `data_hora, modelo, rodada, id, nivel, tarefa, acerto_1a, acerto, nota, tentativas, segundos, tokens_s, pct_gpu, erro, saida`.
+- Erros de infraestrutura (Ollama ou MySQL fora do ar) ficam marcados como `INFRA:` e não contam como erro do modelo.
+- Se o modelo não terminar a resposta em 600 s, a execução fica marcada como `TIMEOUT:` e conta como erro do modelo (nota 0, tempo 600 s). Ver decisão 11.
+- Tempo medido: ~1h no qwen2.5-coder:3b e ~1h10 no llama3.2:3b, com 3 rodadas.
+
 ## Critérios ainda a definir
 
-- Critérios de nota (escala e quem avalia) para interpretação, resumo e anomalia.
 - Número final de rodadas por pergunta (3 a 5).

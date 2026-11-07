@@ -1,0 +1,1492 @@
+"data_hora","modelo","rodada","id","nivel","tarefa","acerto_1a","acerto","nota","tentativas","segundos","tokens_s","pct_gpu","erro","saida"
+"2026-11-07 17:20:28","qwen2.5-coder:3b",1,1,"facil","texto_sql",1,1,1.0,1,5.9,13.5,59.7,"","SELECT COUNT(DISTINCT c.id) AS total_clientes FROM clientes c"
+"2026-11-07 17:20:35","qwen2.5-coder:3b",1,2,"facil","texto_sql",1,1,1.0,1,5.0,11.7,59.7,"","SELECT COUNT(*) AS total_vendas_finalizadas FROM vendas WHERE status_venda = 'FINALIZADA'"
+"2026-11-07 17:20:42","qwen2.5-coder:3b",1,3,"facil","texto_sql",1,1,1.0,1,4.9,12.0,59.7,"","SELECT COUNT(v.id) AS vendas_canceladas FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 17:20:50","qwen2.5-coder:3b",1,4,"facil","texto_sql",1,1,1.0,1,5.5,11.8,59.7,"","SELECT SUM(v.valor_total) AS faturamento_total FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 17:20:57","qwen2.5-coder:3b",1,5,"facil","texto_sql",1,1,1.0,1,5.0,13.8,59.7,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 17:21:03","qwen2.5-coder:3b",1,6,"facil","texto_sql",1,1,1.0,1,4.0,13.1,59.7,"","SELECT COUNT(DISTINCT p.id) AS quantidade_produtos FROM produtos p"
+"2026-11-07 17:21:11","qwen2.5-coder:3b",1,7,"facil","texto_sql",0,0,0.0,1,5.2,12.5,59.7,"","SELECT c.categoria FROM produtos p JOIN categorias c ON p.categoria_id = c.id ORDER BY c.categoria ASC"
+"2026-11-07 17:21:17","qwen2.5-coder:3b",1,8,"facil","texto_sql",1,1,1.0,1,4.3,13.6,59.7,"","SELECT COUNT(DISTINCT f.id) AS quantidade_fornecedores FROM fornecedores f"
+"2026-11-07 17:21:24","qwen2.5-coder:3b",1,9,"facil","texto_sql",1,1,1.0,1,4.5,13.5,59.7,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv"
+"2026-11-07 17:21:31","qwen2.5-coder:3b",1,10,"facil","texto_sql",1,1,1.0,1,4.9,13.1,59.7,"","SELECT COUNT(*) AS parcelas_abertas FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 17:21:41","qwen2.5-coder:3b",1,11,"media","texto_sql",1,1,1.0,1,7.8,12.8,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 17:21:50","qwen2.5-coder:3b",1,12,"media","texto_sql",1,1,1.0,1,6.3,12.8,59.7,"","SELECT e.uf, COUNT(c.id) AS quantidade FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 17:22:13","qwen2.5-coder:3b",1,13,"media","texto_sql",0,1,1.0,2,21.1,11.9,59.7,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' GROUP BY p.produto ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 17:22:27","qwen2.5-coder:3b",1,14,"media","texto_sql",0,0,0.0,1,11.4,12.5,59.7,"","SELECT m.marca, SUM(vi.valor_total) AS total_vendas FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' GROUP BY m.marca ORDER BY total_vendas DESC LIMIT 1"
+"2026-11-07 17:22:37","qwen2.5-coder:3b",1,15,"media","texto_sql",1,1,1.0,1,7.5,12.7,59.7,"","SELECT cp.condicao_pagamento, COUNT(v.id) AS quantidade_vendas FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id WHERE v.status_venda = 'FINALIZADA' GROUP BY cp.condicao_pagamento"
+"2026-11-07 17:22:48","qwen2.5-coder:3b",1,16,"media","texto_sql",0,0,0.0,1,8.4,13.1,59.7,"","SELECT f.razaosocial, SUM(ci.valor_total) AS valor_total_comprado FROM compras_itens ci JOIN compras c ON c.id = ci.compra_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO' GROUP BY f.razaosocial"
+"2026-11-07 17:23:06","qwen2.5-coder:3b",1,17,"media","texto_sql",0,1,1.0,3,16.1,12.6,59.7,"","SELECT ci.cidade FROM clientes c JOIN cidades ci ON c.cidade_id = ci.id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 17:23:16","qwen2.5-coder:3b",1,18,"media","texto_sql",1,1,1.0,1,8.1,13.2,59.7,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY c.categoria"
+"2026-11-07 17:23:28","qwen2.5-coder:3b",1,19,"media","texto_sql",0,0,0.0,1,9.8,13.1,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01' GROUP BY mes ORDER BY mes"
+"2026-11-07 17:23:37","qwen2.5-coder:3b",1,20,"media","texto_sql",0,0,0.0,1,6.1,13.6,59.7,"","SELECT SUM(cr.valor_original - cr.valor_saldo) AS valor_em_aberto FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 17:23:49","qwen2.5-coder:3b",1,21,"dificil","texto_sql",1,1,1.0,1,9.8,13.5,59.7,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria"
+"2026-11-07 17:23:59","qwen2.5-coder:3b",1,22,"dificil","texto_sql",0,0,0.0,1,7.6,13.4,59.7,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM vendas v JOIN clientes c ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 17:24:07","qwen2.5-coder:3b",1,23,"dificil","texto_sql",1,1,1.0,1,6.5,13.1,59.7,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) * 100 / COUNT(v.id) AS percentual_canceladas FROM vendas v"
+"2026-11-07 17:24:18","qwen2.5-coder:3b",1,24,"dificil","texto_sql",1,1,1.0,1,7.7,13.3,59.7,"","SELECT c.nome_razaosocial FROM clientes c WHERE NOT EXISTS (SELECT 1 FROM vendas v WHERE v.cliente_id = c.id AND v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-08-01')"
+"2026-11-07 17:24:33","qwen2.5-coder:3b",1,25,"dificil","texto_sql",0,1,1.0,2,12.6,13.3,59.7,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM produtos p JOIN produto_variacoes pv ON p.id = pv.produto_id JOIN estoque e ON pv.id = e.produto_variacao_id WHERE e.quantidade < 5"
+"2026-11-07 17:25:50","qwen2.5-coder:3b",1,26,"dificil","texto_sql",0,0,0.0,3,74.6,11.3,59.7,"Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'erp_loja.v.desconto_percentual_aplicado' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","SELECT (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_novembro, (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_dezembro, ((SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) - (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100))) * 100 / (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS crescimento_percentual FROM vendas v JOIN condicoes_pagamentos c ON c.id = v.condicao_pagamento_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-11-01' AND v.criado_em < '2026-01-01' GROUP BY v.criado_em"
+"2026-11-07 17:26:25","qwen2.5-coder:3b",1,27,"dificil","texto_sql",0,0,0.0,3,32.2,12.8,59.7,"","SELECT c.categoria, p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria, p.produto ORDER BY quantidade_vendida DESC"
+"2026-11-07 17:26:35","qwen2.5-coder:3b",1,28,"dificil","texto_sql",1,1,1.0,1,8.4,13.1,59.7,"","SELECT e.uf, AVG(v.valor_total) AS ticket_medio FROM vendas v JOIN clientes c ON v.cliente_id = c.id JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id WHERE v.status_venda = 'FINALIZADA' GROUP BY e.uf"
+"2026-11-07 17:26:47","qwen2.5-coder:3b",1,29,"dificil","texto_sql",0,0,0.0,1,9.0,13.3,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%u') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY dia_semana ORDER BY dia_semana"
+"2026-11-07 17:26:55","qwen2.5-coder:3b",1,30,"dificil","texto_sql",0,0,0.0,1,5.9,13.6,59.7,"","SELECT SUM(c.valor_original * c.valor_saldo / 100) AS percentual_em_aberto FROM contas_receber c WHERE c.data_vencimento < '2026-11-07'"
+"2026-11-07 17:26:59","qwen2.5-coder:3b",1,31,"facil","interpretacao",0,0,0.0,1,4.8,15.5,59.7,"","O mês com o maior faturamento foi 2026-07, com um valor de 88006.25."
+"2026-11-07 17:27:04","qwen2.5-coder:3b",1,32,"facil","interpretacao",1,1,1.0,1,4.3,15.8,59.7,"","A categoria com o menor faturamento foi Acessórios, com um valor de R$ 7975,80."
+"2026-11-07 17:27:09","qwen2.5-coder:3b",1,33,"media","interpretacao",0,0,0.0,1,5.0,15.6,59.7,"","A condição de pagamento mais usada foi o Crédito 1x, com 294 vendas. Ela representa 44,5% das vendas totais."
+"2026-11-07 17:27:14","qwen2.5-coder:3b",1,34,"media","interpretacao",0,0,0.0,1,4.7,15.9,59.7,"","O percentual de clientes do Paraná (PR) é de 119/119 + 9 + 16 + 6 = 100%."
+"2026-11-07 17:27:17","qwen2.5-coder:3b",1,35,"facil","interpretacao",0,0,0.0,1,3.2,15.1,59.7,"","Total de vendas registradas: 1499"
+"2026-11-07 17:27:23","qwen2.5-coder:3b",1,36,"dificil","interpretacao",1,1,1.0,1,6.1,15.3,59.7,"","A categoria com a maior margem percentual é Camisas, com uma margem de 42473.15 dividida pelo faturamento de 83764.30, resultando em 50.9%."
+"2026-11-07 17:27:46","qwen2.5-coder:3b",1,37,"media","resumo",0,0,0.0,1,22.7,14.9,59.7,"","Aqui está o resumo executivo:
+
+1. O faturamento da loja de roupas cresceu de 2025-11 a 2026-10, aumentando de R$ 68542.85 para R$ 55290.41.
+
+2. O crescimento foi mais significativo nos meses de 2026-05 (R$ 72972.65) e 2026-06 (R$ 67200.35), com valores que representam 100% e 99% do crescimento total, respectivamente.
+
+3. O mês de 2026-07 teve o maior faturamento, com R$ 88006.25, representando 150% do crescimento acumulado até esse ponto.
+
+4. O faturamento decresceu no mês de 2026-09, com R$ 42738.87, representando 20% do crescimento total.
+
+5. O faturamento total da loja de roupas no período de 01/11/2025 a 31/10/2026 foi de R$ 55290.41."
+"2026-11-07 17:28:08","qwen2.5-coder:3b",1,38,"media","resumo",0,0,0.667,1,22.5,14.4,59.7,"","Resumo Executivo:
+
+1. **Camisas** lideram com 687 unidades vendidas e um faturamento total de R$ 506,955,00, representando 38,5% do total de vendas.
+
+2. **Calças** são o segundo maior grupo, vendendo 750 unidades e gerando R$ 157,350,79, representando 10,0% do total.
+
+3. **Jaquetas** ocupam o terceiro lugar, vendendo 655 unidades e gerando R$ 201,269,50, representando 13,0% do total.
+
+4. **Vestidos** são o quarto maior grupo, vendendo 525 unidades e gerando R$ 129,482,50, representando 8,0% do total.
+
+5. **Saias** ocupam o quinto lugar, vendendo 644 unidades e gerando R$ 82,986,92, representando 5,5% do total.
+
+Esses dados indicam que as camisas são as principais vendas da loja, seguidas por calças, jaquetas, vestidos e saias."
+"2026-11-07 17:28:27","qwen2.5-coder:3b",1,39,"media","resumo",1,1,1.0,1,18.1,15.1,59.7,"","Resumo Executivo:
+
+A loja de roupas tem 3 contas a receber no período de 01/11/2025 a 31/10/2026. As contas estão em aberto ou recebidas, com os seguintes detalhes:
+
+1. Conta ABERTA com 42 parcelas, valor original de R$ 8,305,48 e saldo atual de R$ 8,305,48.
+2. Conta ABERTA com 55 parcelas, valor original de R$ 10,252,22 e saldo atual de R$ 10,252,22.
+3. Conta RECEBIDA com 406 parcelas, valor original de R$ 868,571,60 e saldo atual de R$ 0,00.
+
+A situação atual das contas a receber indica que há duas contas em aberto, com valores significativos, e uma conta recebida com um saldo zerado."
+"2026-11-07 17:28:44","qwen2.5-coder:3b",1,40,"dificil","resumo",1,1,1.0,1,17.4,15.1,59.7,"","Resumo Executivo:
+
+1. Vendas Totais: R$ 748980.17 (Finalizadas: R$ 748980.17, Canceladas: R$ 37073.28)
+
+2. Status Vendas:
+   - ABERTA: 7 vendas
+   - FINALIZADA: 1416 vendas
+   - CANCELADA: 77 vendas
+
+3. Ticket Médio: R$ 528.94 (Finalizadas: R$ 528.94, Canceladas: R$ 481.47)
+
+4. Descontos Totais: R$ 22470.54 (Finalizadas: R$ 22470.54, Canceladas: R$ 1245.92)
+
+5. Vendas por Status:
+   - Finalizadas: 1416 vendas
+   - Canceladas: 77 vendas"
+"2026-11-07 17:28:51","qwen2.5-coder:3b",1,41,"media","anomalia",1,1,1.0,1,6.9,15.5,59.7,"","Sim, a semana de 2026-07-13 teve volume de vendas fora do padrão. A venda nessa semana foi de R$ 102,00, que é significativamente maior que as vendas das semanas anteriores e posteriores."
+"2026-11-07 17:29:00","qwen2.5-coder:3b",1,42,"media","anomalia",1,1,1.0,1,9.3,13.7,59.7,"","O cliente com valor de compras muito diferente dos demais é:
+
+- **Nome:** Lucas Ferreira Kowalski
+- **ID:** 42
+- **Vendas:** 59619.85
+
+Este cliente tem vendas que são significativamente maiores que as vendas dos outros clientes na tabela."
+"2026-11-07 17:30:19","qwen2.5-coder:3b",1,43,"media","anomalia",0,0,0.151,1,78.8,11.7,59.7,"","As vendas que têm desconto fora do padrão são as seguintes:
+
+1. Venda 15: Desconto de 10%
+2. Venda 39: Desconto de 70%
+3. Venda 60: Desconto de 5%
+4. Venda 75: Desconto de 5%
+5. Venda 120: Desconto de 5%
+6. Venda 150: Desconto de 5%
+7. Venda 180: Desconto de 10%
+8. Venda 195: Desconto de 10%
+9. Venda 210: Desconto de 5%
+10. Venda 255: Desconto de 10%
+11. Venda 265: Desconto de 70%
+12. Venda 270: Desconto de 5%
+13. Venda 300: Desconto de 5%
+14. Venda 315: Desconto de 5%
+15. Venda 420: Desconto de 5%
+16. Venda 450: Desconto de 5%
+17. Venda 480: Desconto de 5%
+18. Venda 495: Desconto de 5%
+19. Venda 510: Desconto de 5%
+20. Venda 570: Desconto de 5%
+21. Venda 588: Desconto de 60%
+22. Venda 600: Desconto de 5%
+23. Venda 615: Desconto de 5%
+24. Venda 630: Desconto de 5%
+25. Venda 780: Desconto de 5%
+26. Venda 795: Desconto de 5%
+27. Venda 810: Desconto de 5%
+28. Venda 825: Desconto de 5%
+29. Venda 855: Desconto de 10%
+30. Venda 885: Desconto de 5%
+31. Venda 945: Desconto de 5%
+32. Venda 951: Desconto de 55%
+33. Venda 960: Desconto de 5%
+34. Venda 975: Desconto de 5%
+35. Venda 1050: Desconto de 5%
+36. Venda 1125: Desconto de 5%
+37. Venda 1140: Desconto de 5%
+38. Venda 1155: Desconto de 5%
+39. Venda 1170: Desconto de 5%
+40. Venda 1200: Desconto de 5%
+41. Venda 1215: Desconto de 5%
+42. Venda 1245: Desconto de 5%
+43. Venda 1260: Desconto de 5%
+44. Venda 1290: Desconto de 5%
+45. Venda 1320: Desconto de 5%
+46. Venda 1350: Desconto de 5%
+47. Venda 1455: Desconto de 5%
+48. Venda 1485: Desconto de 5%
+49. Venda 1500: Desconto de 5%
+
+Essas vendas têm descontos que variam de 5% a 70%, o que não é o padrão de 10% aplicado em 11 vendas."
+"2026-11-07 17:40:22","qwen2.5-coder:3b",1,44,"dificil","anomalia",0,0,0.0,1,600.0,"",59.7,"TIMEOUT: o modelo não terminou a resposta em 600 s",""
+"2026-11-07 17:40:29","qwen2.5-coder:3b",1,45,"facil","anomalia",0,0,0.0,1,6.9,14.4,59.7,"","Sim, há inconsistência no estoque. A variável ""Camiseta Básica"" com o tamanho ""M"" tem uma quantidade negativa (-5), o que não é possível."
+"2026-11-07 17:40:35","qwen2.5-coder:3b",2,1,"facil","texto_sql",1,1,1.0,1,3.9,14.4,59.7,"","SELECT COUNT(DISTINCT c.id) AS total_clientes FROM clientes c"
+"2026-11-07 17:40:41","qwen2.5-coder:3b",2,2,"facil","texto_sql",1,1,1.0,1,4.5,14.3,59.7,"","SELECT COUNT(*) AS total_vendas_finalizadas FROM vendas WHERE status_venda = 'FINALIZADA'"
+"2026-11-07 17:40:48","qwen2.5-coder:3b",2,3,"facil","texto_sql",1,1,1.0,1,4.5,13.9,59.7,"","SELECT COUNT(v.id) AS vendas_canceladas FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 17:40:55","qwen2.5-coder:3b",2,4,"facil","texto_sql",1,1,1.0,1,5.0,13.9,59.7,"","SELECT SUM(v.valor_total) AS faturamento_total FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 17:41:02","qwen2.5-coder:3b",2,5,"facil","texto_sql",1,1,1.0,1,4.9,14.1,59.7,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 17:41:08","qwen2.5-coder:3b",2,6,"facil","texto_sql",1,1,1.0,1,3.9,14.3,59.7,"","SELECT COUNT(DISTINCT p.id) AS quantidade_produtos FROM produtos p"
+"2026-11-07 17:41:15","qwen2.5-coder:3b",2,7,"facil","texto_sql",0,0,0.0,1,5.1,13.7,59.7,"","SELECT c.categoria FROM produtos p JOIN categorias c ON p.categoria_id = c.id ORDER BY c.categoria ASC"
+"2026-11-07 17:41:22","qwen2.5-coder:3b",2,8,"facil","texto_sql",1,1,1.0,1,4.2,13.6,59.7,"","SELECT COUNT(DISTINCT f.id) AS quantidade_fornecedores FROM fornecedores f"
+"2026-11-07 17:41:28","qwen2.5-coder:3b",2,9,"facil","texto_sql",1,1,1.0,1,4.5,13.3,59.7,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv"
+"2026-11-07 17:41:35","qwen2.5-coder:3b",2,10,"facil","texto_sql",1,1,1.0,1,4.8,13.9,59.7,"","SELECT COUNT(*) AS parcelas_abertas FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 17:41:45","qwen2.5-coder:3b",2,11,"media","texto_sql",1,1,1.0,1,7.5,13.5,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 17:41:53","qwen2.5-coder:3b",2,12,"media","texto_sql",1,1,1.0,1,6.0,13.7,59.7,"","SELECT e.uf, COUNT(c.id) AS quantidade FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 17:42:16","qwen2.5-coder:3b",2,13,"media","texto_sql",0,1,1.0,2,20.0,13.2,59.7,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' GROUP BY p.produto ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 17:42:29","qwen2.5-coder:3b",2,14,"media","texto_sql",0,0,0.0,1,10.5,13.6,59.7,"","SELECT m.marca, SUM(vi.valor_total) AS total_vendas FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' GROUP BY m.marca ORDER BY total_vendas DESC LIMIT 1"
+"2026-11-07 17:42:38","qwen2.5-coder:3b",2,15,"media","texto_sql",1,1,1.0,1,7.1,13.8,59.7,"","SELECT cp.condicao_pagamento, COUNT(v.id) AS quantidade_vendas FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id WHERE v.status_venda = 'FINALIZADA' GROUP BY cp.condicao_pagamento"
+"2026-11-07 17:42:48","qwen2.5-coder:3b",2,16,"media","texto_sql",0,0,0.0,1,8.3,13.2,59.7,"","SELECT f.razaosocial, SUM(ci.valor_total) AS valor_total_comprado FROM compras_itens ci JOIN compras c ON c.id = ci.compra_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO' GROUP BY f.razaosocial"
+"2026-11-07 17:43:06","qwen2.5-coder:3b",2,17,"media","texto_sql",0,1,1.0,3,15.8,13.6,59.7,"","SELECT ci.cidade FROM clientes c JOIN cidades ci ON c.cidade_id = ci.id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 17:43:17","qwen2.5-coder:3b",2,18,"media","texto_sql",1,1,1.0,1,7.7,13.7,59.7,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY c.categoria"
+"2026-11-07 17:43:28","qwen2.5-coder:3b",2,19,"media","texto_sql",0,0,0.0,1,9.5,13.6,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01' GROUP BY mes ORDER BY mes"
+"2026-11-07 17:43:37","qwen2.5-coder:3b",2,20,"media","texto_sql",0,0,0.0,1,6.0,13.7,59.7,"","SELECT SUM(cr.valor_original - cr.valor_saldo) AS valor_em_aberto FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 17:43:49","qwen2.5-coder:3b",2,21,"dificil","texto_sql",1,1,1.0,1,9.9,13.1,59.7,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria"
+"2026-11-07 17:43:59","qwen2.5-coder:3b",2,22,"dificil","texto_sql",0,0,0.0,1,7.7,13.4,59.7,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM vendas v JOIN clientes c ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 17:44:07","qwen2.5-coder:3b",2,23,"dificil","texto_sql",1,1,1.0,1,6.3,13.5,59.7,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) * 100 / COUNT(v.id) AS percentual_canceladas FROM vendas v"
+"2026-11-07 17:44:17","qwen2.5-coder:3b",2,24,"dificil","texto_sql",1,1,1.0,1,7.7,13.4,59.7,"","SELECT c.nome_razaosocial FROM clientes c WHERE NOT EXISTS (SELECT 1 FROM vendas v WHERE v.cliente_id = c.id AND v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-08-01')"
+"2026-11-07 17:44:32","qwen2.5-coder:3b",2,25,"dificil","texto_sql",0,1,1.0,2,12.7,13.5,59.7,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM produtos p JOIN produto_variacoes pv ON p.id = pv.produto_id JOIN estoque e ON pv.id = e.produto_variacao_id WHERE e.quantidade < 5"
+"2026-11-07 17:45:46","qwen2.5-coder:3b",2,26,"dificil","texto_sql",0,0,0.0,3,71.7,12.1,59.7,"Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'erp_loja.v.desconto_percentual_aplicado' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","SELECT (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_novembro, (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_dezembro, ((SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) - (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100))) * 100 / (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS crescimento_percentual FROM vendas v JOIN condicoes_pagamentos c ON c.id = v.condicao_pagamento_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-11-01' AND v.criado_em < '2026-01-01' GROUP BY v.criado_em"
+"2026-11-07 17:46:21","qwen2.5-coder:3b",2,27,"dificil","texto_sql",0,0,0.0,3,32.5,12.8,59.7,"","SELECT c.categoria, p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria, p.produto ORDER BY quantidade_vendida DESC"
+"2026-11-07 17:46:31","qwen2.5-coder:3b",2,28,"dificil","texto_sql",1,1,1.0,1,8.0,13.6,59.7,"","SELECT e.uf, AVG(v.valor_total) AS ticket_medio FROM vendas v JOIN clientes c ON v.cliente_id = c.id JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id WHERE v.status_venda = 'FINALIZADA' GROUP BY e.uf"
+"2026-11-07 17:46:43","qwen2.5-coder:3b",2,29,"dificil","texto_sql",0,0,0.0,1,9.1,13.2,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%u') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY dia_semana ORDER BY dia_semana"
+"2026-11-07 17:46:51","qwen2.5-coder:3b",2,30,"dificil","texto_sql",0,0,0.0,1,6.0,13.2,59.7,"","SELECT SUM(c.valor_original * c.valor_saldo / 100) AS percentual_em_aberto FROM contas_receber c WHERE c.data_vencimento < '2026-11-07'"
+"2026-11-07 17:46:55","qwen2.5-coder:3b",2,31,"facil","interpretacao",0,0,0.0,1,4.4,15.7,59.7,"","O mês com o maior faturamento foi 2026-07, com um valor de 88006.25."
+"2026-11-07 17:47:00","qwen2.5-coder:3b",2,32,"facil","interpretacao",1,1,1.0,1,4.3,16.1,59.7,"","A categoria com o menor faturamento foi Acessórios, com um valor de R$ 7975,80."
+"2026-11-07 17:47:05","qwen2.5-coder:3b",2,33,"media","interpretacao",0,0,0.0,1,4.8,15.3,59.7,"","A condição de pagamento mais usada foi o Crédito 1x, com 294 vendas. Ela representa 44,5% das vendas totais."
+"2026-11-07 17:47:09","qwen2.5-coder:3b",2,34,"media","interpretacao",0,0,0.0,1,4.3,16.2,59.7,"","O percentual de clientes do Paraná (PR) é de 119/190 * 100 = 62,63%."
+"2026-11-07 17:47:12","qwen2.5-coder:3b",2,35,"facil","interpretacao",0,0,0.0,1,3.1,17.6,59.7,"","Total de vendas registradas: 1499"
+"2026-11-07 17:47:17","qwen2.5-coder:3b",2,36,"dificil","interpretacao",1,1,1.0,1,5.6,15.8,59.7,"","A categoria com a maior margem percentual é Camisas, com uma margem de 42473.15 dividida pelo faturamento de 83764.30, resultando em 50.9%."
+"2026-11-07 17:47:33","qwen2.5-coder:3b",2,37,"media","resumo",0,0,0.0,1,15.8,14.8,59.7,"","Aqui está o resumo executivo:
+
+1. O faturamento total da loja de roupas de 01/11/2025 a 31/10/2026 foi de R$ 1.558.880,30.
+
+2. O mês com o maior faturamento foi o de Junho, com R$ 672.003,50.
+
+3. O mês com o menor faturamento foi o de Setembro, com R$ 42.738,87.
+
+4. A média mensal de faturamento foi de R$ 779.440,15.
+
+5. O crescimento do faturamento foi de 10,5% entre o mês de Novembro de 2025 e o mês de Outubro de 2026."
+"2026-11-07 17:47:49","qwen2.5-coder:3b",2,38,"media","resumo",0,0,0.667,1,15.9,13.0,59.7,"","Resumo Executivo:
+
+1. Jaquetas: Maior faturamento (201269.50), maior margem (100052.74).
+
+2. Calças: Maior faturamento (157350.79), maior margem (77291.89).
+
+3. Vestidos: Maior faturamento (129482.50), maior margem (65133.71).
+
+4. Camisas: Maior faturamento (83764.30), maior margem (42473.15).
+
+5. Saias: Maior faturamento (82986.92), maior margem (41122.14)."
+"2026-11-07 17:48:10","qwen2.5-coder:3b",2,39,"media","resumo",1,1,1.0,1,20.6,12.6,59.7,"","Resumo Executivo:
+
+A loja de roupas tem 3 contas a receber no período de 01/11/2025 a 31/10/2026. As contas estão em aberto com os seguintes detalhes:
+
+1. Conta 1: Status ABERTA, 42 parcelas, valor original R$ 8,305,48, saldo atual R$ 8,305,48.
+2. Conta 2: Status ABERTA, 55 parcelas, valor original R$ 10,252,22, saldo atual R$ 10,252,22.
+3. Conta 3: Status RECEBIDA, 406 parcelas, valor original R$ 86,857,16, saldo atual R$ 0,00.
+
+A situação atual das contas a receber indica que há duas contas em aberto com valores significativos, enquanto uma conta foi recebida completamente."
+"2026-11-07 17:48:28","qwen2.5-coder:3b",2,40,"dificil","resumo",1,1,1.0,1,18.6,13.2,59.7,"","Resumo Executivo:
+
+1. Vendas Totais: R$ 748980.17 (Finalizadas: R$ 748980.17, Canceladas: R$ 37073.28)
+
+2. Status de Vendas:
+   - Finalizadas: 1416 vendas
+   - Canceladas: 77 vendas
+
+3. Ticket Médio: R$ 528.94 (Finalizadas: R$ 528.94, Canceladas: R$ 481.47)
+
+4. Descontos Totais: R$ 22470.54 (Finalizadas: R$ 22470.54, Canceladas: R$ 1245.92)
+
+5. Vendas por Status:
+   - Finalizadas: 1416 vendas
+   - Canceladas: 77 vendas"
+"2026-11-07 17:48:36","qwen2.5-coder:3b",2,41,"media","anomalia",1,1,1.0,1,7.2,13.5,59.7,"","Sim, a semana de 2026-07-13 teve volume de vendas fora do padrão. A venda nessa semana foi de R$ 102,00, que é significativamente maior que as vendas das semanas anteriores e posteriores."
+"2026-11-07 17:48:44","qwen2.5-coder:3b",2,42,"media","anomalia",1,1,1.0,1,8.1,12.5,59.7,"","O cliente com valor de compras muito diferente dos demais é:
+
+- **Nome:** Lucas Ferreira Kowalski
+- **ID:** 42
+- **Vendas:** 59619.85
+
+Este cliente tem vendas que são significativamente maiores que as vendas dos outros clientes na tabela."
+"2026-11-07 17:50:04","qwen2.5-coder:3b",2,43,"media","anomalia",0,0,0.151,1,80.4,10.9,59.7,"","As vendas que têm desconto fora do padrão são as seguintes:
+
+1. Venda 15: Desconto de 10%
+2. Venda 39: Desconto de 70%
+3. Venda 60: Desconto de 5%
+4. Venda 75: Desconto de 5%
+5. Venda 120: Desconto de 5%
+6. Venda 150: Desconto de 5%
+7. Venda 180: Desconto de 10%
+8. Venda 195: Desconto de 10%
+9. Venda 210: Desconto de 5%
+10. Venda 255: Desconto de 10%
+11. Venda 265: Desconto de 70%
+12. Venda 270: Desconto de 5%
+13. Venda 300: Desconto de 5%
+14. Venda 315: Desconto de 5%
+15. Venda 420: Desconto de 5%
+16. Venda 450: Desconto de 5%
+17. Venda 480: Desconto de 5%
+18. Venda 495: Desconto de 5%
+19. Venda 510: Desconto de 5%
+20. Venda 570: Desconto de 5%
+21. Venda 588: Desconto de 60%
+22. Venda 600: Desconto de 5%
+23. Venda 615: Desconto de 5%
+24. Venda 630: Desconto de 5%
+25. Venda 780: Desconto de 5%
+26. Venda 795: Desconto de 5%
+27. Venda 810: Desconto de 5%
+28. Venda 825: Desconto de 5%
+29. Venda 855: Desconto de 10%
+30. Venda 885: Desconto de 5%
+31. Venda 945: Desconto de 5%
+32. Venda 951: Desconto de 55%
+33. Venda 960: Desconto de 5%
+34. Venda 975: Desconto de 5%
+35. Venda 1050: Desconto de 5%
+36. Venda 1125: Desconto de 5%
+37. Venda 1140: Desconto de 5%
+38. Venda 1155: Desconto de 5%
+39. Venda 1170: Desconto de 5%
+40. Venda 1200: Desconto de 5%
+41. Venda 1215: Desconto de 5%
+42. Venda 1245: Desconto de 5%
+43. Venda 1260: Desconto de 5%
+44. Venda 1290: Desconto de 5%
+45. Venda 1320: Desconto de 5%
+46. Venda 1350: Desconto de 5%
+47. Venda 1455: Desconto de 5%
+48. Venda 1485: Desconto de 5%
+49. Venda 1500: Desconto de 5%
+
+Essas vendas têm descontos que variam de 5% a 70%, o que não é o padrão de 5% aplicado a todas as vendas."
+"2026-11-07 18:00:06","qwen2.5-coder:3b",2,44,"dificil","anomalia",0,0,0.0,1,600.0,"",59.7,"TIMEOUT: o modelo não terminou a resposta em 600 s",""
+"2026-11-07 18:00:12","qwen2.5-coder:3b",2,45,"facil","anomalia",0,0,0.0,1,5.7,12.6,59.7,"","Sim, há uma inconsistência no estoque. A variável ""Camiseta Básica"" com o tamanho ""GG"" tem uma quantidade negativa (-5), o que não é possível."
+"2026-11-07 18:00:18","qwen2.5-coder:3b",3,1,"facil","texto_sql",1,1,1.0,1,4.1,13.9,59.7,"","SELECT COUNT(DISTINCT c.id) AS total_clientes FROM clientes c"
+"2026-11-07 18:00:25","qwen2.5-coder:3b",3,2,"facil","texto_sql",1,1,1.0,1,4.7,12.3,59.7,"","SELECT COUNT(*) AS total_vendas_finalizadas FROM vendas WHERE status_venda = 'FINALIZADA'"
+"2026-11-07 18:00:32","qwen2.5-coder:3b",3,3,"facil","texto_sql",1,1,1.0,1,4.6,13.6,59.7,"","SELECT COUNT(v.id) AS vendas_canceladas FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 18:00:39","qwen2.5-coder:3b",3,4,"facil","texto_sql",1,1,1.0,1,5.1,13.7,59.7,"","SELECT SUM(v.valor_total) AS faturamento_total FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:00:46","qwen2.5-coder:3b",3,5,"facil","texto_sql",1,1,1.0,1,5.0,13.2,59.7,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:00:52","qwen2.5-coder:3b",3,6,"facil","texto_sql",1,1,1.0,1,3.9,13.8,59.7,"","SELECT COUNT(DISTINCT p.id) AS quantidade_produtos FROM produtos p"
+"2026-11-07 18:00:59","qwen2.5-coder:3b",3,7,"facil","texto_sql",0,0,0.0,1,5.0,13.8,59.7,"","SELECT c.categoria FROM produtos p JOIN categorias c ON p.categoria_id = c.id ORDER BY c.categoria ASC"
+"2026-11-07 18:01:06","qwen2.5-coder:3b",3,8,"facil","texto_sql",1,1,1.0,1,4.4,13.2,59.7,"","SELECT COUNT(DISTINCT f.id) AS quantidade_fornecedores FROM fornecedores f"
+"2026-11-07 18:01:13","qwen2.5-coder:3b",3,9,"facil","texto_sql",1,1,1.0,1,4.4,13.7,59.7,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv"
+"2026-11-07 18:01:20","qwen2.5-coder:3b",3,10,"facil","texto_sql",1,1,1.0,1,4.9,13.2,59.7,"","SELECT COUNT(*) AS parcelas_abertas FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 18:01:29","qwen2.5-coder:3b",3,11,"media","texto_sql",1,1,1.0,1,7.5,13.4,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 18:01:38","qwen2.5-coder:3b",3,12,"media","texto_sql",1,1,1.0,1,6.0,13.5,59.7,"","SELECT e.uf, COUNT(c.id) AS quantidade FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 18:02:00","qwen2.5-coder:3b",3,13,"media","texto_sql",0,1,1.0,2,19.8,13.3,59.7,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' GROUP BY p.produto ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 18:02:13","qwen2.5-coder:3b",3,14,"media","texto_sql",0,0,0.0,1,10.5,13.5,59.7,"","SELECT m.marca, SUM(vi.valor_total) AS total_vendas FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' GROUP BY m.marca ORDER BY total_vendas DESC LIMIT 1"
+"2026-11-07 18:02:22","qwen2.5-coder:3b",3,15,"media","texto_sql",1,1,1.0,1,7.2,13.7,59.7,"","SELECT cp.condicao_pagamento, COUNT(v.id) AS quantidade_vendas FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id WHERE v.status_venda = 'FINALIZADA' GROUP BY cp.condicao_pagamento"
+"2026-11-07 18:02:32","qwen2.5-coder:3b",3,16,"media","texto_sql",0,0,0.0,1,8.2,13.6,59.7,"","SELECT f.razaosocial, SUM(ci.valor_total) AS valor_total_comprado FROM compras_itens ci JOIN compras c ON c.id = ci.compra_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO' GROUP BY f.razaosocial"
+"2026-11-07 18:02:50","qwen2.5-coder:3b",3,17,"media","texto_sql",0,1,1.0,3,15.7,13.4,59.7,"","SELECT ci.cidade FROM clientes c JOIN cidades ci ON c.cidade_id = ci.id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 18:03:00","qwen2.5-coder:3b",3,18,"media","texto_sql",1,1,1.0,1,7.7,13.6,59.7,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY c.categoria"
+"2026-11-07 18:03:12","qwen2.5-coder:3b",3,19,"media","texto_sql",0,0,0.0,1,9.5,13.6,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01' GROUP BY mes ORDER BY mes"
+"2026-11-07 18:03:20","qwen2.5-coder:3b",3,20,"media","texto_sql",0,0,0.0,1,6.0,13.8,59.7,"","SELECT SUM(cr.valor_original - cr.valor_saldo) AS valor_em_aberto FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 18:03:32","qwen2.5-coder:3b",3,21,"dificil","texto_sql",1,1,1.0,1,9.8,13.4,59.7,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria"
+"2026-11-07 18:03:43","qwen2.5-coder:3b",3,22,"dificil","texto_sql",0,0,0.0,1,7.6,13.5,59.7,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM vendas v JOIN clientes c ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 18:03:51","qwen2.5-coder:3b",3,23,"dificil","texto_sql",1,1,1.0,1,6.3,13.5,59.7,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) * 100 / COUNT(v.id) AS percentual_canceladas FROM vendas v"
+"2026-11-07 18:04:01","qwen2.5-coder:3b",3,24,"dificil","texto_sql",1,1,1.0,1,7.6,13.5,59.7,"","SELECT c.nome_razaosocial FROM clientes c WHERE NOT EXISTS (SELECT 1 FROM vendas v WHERE v.cliente_id = c.id AND v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-08-01')"
+"2026-11-07 18:04:16","qwen2.5-coder:3b",3,25,"dificil","texto_sql",0,1,1.0,2,12.5,13.3,59.7,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM produtos p JOIN produto_variacoes pv ON p.id = pv.produto_id JOIN estoque e ON pv.id = e.produto_variacao_id WHERE e.quantidade < 5"
+"2026-11-07 18:05:30","qwen2.5-coder:3b",3,26,"dificil","texto_sql",0,0,0.0,3,71.4,12.2,59.7,"Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'erp_loja.v.desconto_percentual_aplicado' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","SELECT (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_novembro, (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS faturamento_dezembro, ((SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) - (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100))) * 100 / (SUM(v.valor_total) - SUM(v.valor_total) * (v.desconto_percentual_aplicado / 100)) AS crescimento_percentual FROM vendas v JOIN condicoes_pagamentos c ON c.id = v.condicao_pagamento_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-11-01' AND v.criado_em < '2026-01-01' GROUP BY v.criado_em"
+"2026-11-07 18:06:04","qwen2.5-coder:3b",3,27,"dificil","texto_sql",0,0,0.0,3,32.4,12.8,59.7,"","SELECT c.categoria, p.produto, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.categoria, p.produto ORDER BY quantidade_vendida DESC"
+"2026-11-07 18:06:15","qwen2.5-coder:3b",3,28,"dificil","texto_sql",1,1,1.0,1,8.0,13.7,59.7,"","SELECT e.uf, AVG(v.valor_total) AS ticket_medio FROM vendas v JOIN clientes c ON v.cliente_id = c.id JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id WHERE v.status_venda = 'FINALIZADA' GROUP BY e.uf"
+"2026-11-07 18:06:26","qwen2.5-coder:3b",3,29,"dificil","texto_sql",0,0,0.0,1,8.8,13.6,59.7,"","SELECT DATE_FORMAT(v.criado_em, '%u') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY dia_semana ORDER BY dia_semana"
+"2026-11-07 18:06:34","qwen2.5-coder:3b",3,30,"dificil","texto_sql",0,0,0.0,1,5.8,13.8,59.7,"","SELECT SUM(c.valor_original * c.valor_saldo / 100) AS percentual_em_aberto FROM contas_receber c WHERE c.data_vencimento < '2026-11-07'"
+"2026-11-07 18:06:38","qwen2.5-coder:3b",3,31,"facil","interpretacao",0,0,0.0,1,4.5,14.7,59.7,"","O mês com o maior faturamento foi 2026-07, com um valor de 88006.25."
+"2026-11-07 18:06:43","qwen2.5-coder:3b",3,32,"facil","interpretacao",1,1,1.0,1,4.2,14.5,59.7,"","A categoria com o menor faturamento foi Acessórios, com um valor de R$ 7975,80."
+"2026-11-07 18:06:48","qwen2.5-coder:3b",3,33,"media","interpretacao",0,0,0.0,1,5.1,14.1,59.7,"","A condição de pagamento mais usada foi o Crédito 1x, com 294 vendas. Ela representa 44,5% das vendas totais."
+"2026-11-07 18:06:52","qwen2.5-coder:3b",3,34,"media","interpretacao",0,0,0.0,1,4.6,14.4,59.7,"","O percentual de clientes do Paraná (PR) é de 119/190 * 100 = 62,63%."
+"2026-11-07 18:06:55","qwen2.5-coder:3b",3,35,"facil","interpretacao",0,0,0.0,1,3.1,14.6,59.7,"","Total de vendas registradas: 1499"
+"2026-11-07 18:07:01","qwen2.5-coder:3b",3,36,"dificil","interpretacao",1,1,1.0,1,5.8,14.9,59.7,"","A categoria com a maior margem percentual é Camisas, com uma margem de 42473.15 dividida pelo faturamento de 83764.30, resultando em 50.9%."
+"2026-11-07 18:07:17","qwen2.5-coder:3b",3,37,"media","resumo",0,0,0.0,1,16.1,14.5,59.7,"","Aqui está o resumo executivo:
+
+1. O faturamento total da loja de roupas de 01/11/2025 a 31/10/2026 foi de R$ 1.558.880,30.
+
+2. O mês com o maior faturamento foi o de Junho, com R$ 672.003,50.
+
+3. O mês com o menor faturamento foi o de Setembro, com R$ 42.738,87.
+
+4. A média mensal de faturamento foi de R$ 779.440,15.
+
+5. O crescimento do faturamento foi de 10,5% entre o mês de Novembro de 2025 e o mês de Outubro de 2026."
+"2026-11-07 18:07:31","qwen2.5-coder:3b",3,38,"media","resumo",0,0,0.667,1,14.4,14.7,59.7,"","Resumo Executivo:
+
+1. Jaquetas: Maior faturamento (201269.50), maior margem (100052.74).
+
+2. Calças: Maior faturamento (157350.79), maior margem (77291.89).
+
+3. Vestidos: Maior faturamento (129482.50), maior margem (65133.71).
+
+4. Camisas: Maior faturamento (83764.30), maior margem (42473.15).
+
+5. Saias: Maior faturamento (82986.92), maior margem (41122.14)."
+"2026-11-07 18:07:50","qwen2.5-coder:3b",3,39,"media","resumo",1,1,1.0,1,18.3,14.3,59.7,"","Resumo Executivo:
+
+A loja de roupas tem 3 contas a receber no período de 01/11/2025 a 31/10/2026. As contas estão em aberto com os seguintes detalhes:
+
+1. Conta 1: Status ABERTA, 42 parcelas, valor original R$ 8,305,48, saldo atual R$ 8,305,48.
+2. Conta 2: Status ABERTA, 55 parcelas, valor original R$ 10,252,22, saldo atual R$ 10,252,22.
+3. Conta 3: Status RECEBIDA, 406 parcelas, valor original R$ 86,857,16, saldo atual R$ 0,00.
+
+A situação atual das contas a receber indica que há duas contas em aberto com valores significativos, enquanto uma conta foi recebida completamente."
+"2026-11-07 18:08:08","qwen2.5-coder:3b",3,40,"dificil","resumo",1,1,1.0,1,17.8,13.9,59.7,"","Resumo Executivo:
+
+1. Vendas Totais: R$ 748980.17 (Finalizadas: R$ 748980.17, Canceladas: R$ 37073.28)
+
+2. Status de Vendas:
+   - Finalizadas: 1416 vendas
+   - Canceladas: 77 vendas
+
+3. Ticket Médio: R$ 528.94 (Finalizadas: R$ 528.94, Canceladas: R$ 481.47)
+
+4. Descontos Totais: R$ 22470.54 (Finalizadas: R$ 22470.54, Canceladas: R$ 1245.92)
+
+5. Vendas por Status:
+   - Finalizadas: 1416 vendas
+   - Canceladas: 77 vendas"
+"2026-11-07 18:08:15","qwen2.5-coder:3b",3,41,"media","anomalia",1,1,1.0,1,7.2,13.0,59.7,"","Sim, a semana de 2026-07-13 teve volume de vendas fora do padrão. A venda nessa semana foi de R$ 102,00, que é significativamente maior que as vendas das semanas anteriores e posteriores."
+"2026-11-07 18:08:23","qwen2.5-coder:3b",3,42,"media","anomalia",1,1,1.0,1,8.2,12.4,59.7,"","O cliente com valor de compras muito diferente dos demais é:
+
+- **Nome:** Lucas Ferreira Kowalski
+- **ID:** 42
+- **Vendas:** 59619.85
+
+Este cliente tem vendas que são significativamente maiores que as vendas dos outros clientes na tabela."
+"2026-11-07 18:09:40","qwen2.5-coder:3b",3,43,"media","anomalia",0,0,0.151,1,76.5,11.5,59.7,"","As vendas que têm desconto fora do padrão são as seguintes:
+
+1. Venda 15: Desconto de 10%
+2. Venda 39: Desconto de 70%
+3. Venda 60: Desconto de 5%
+4. Venda 75: Desconto de 5%
+5. Venda 120: Desconto de 5%
+6. Venda 150: Desconto de 5%
+7. Venda 180: Desconto de 10%
+8. Venda 195: Desconto de 10%
+9. Venda 210: Desconto de 5%
+10. Venda 255: Desconto de 10%
+11. Venda 265: Desconto de 70%
+12. Venda 270: Desconto de 5%
+13. Venda 300: Desconto de 5%
+14. Venda 315: Desconto de 5%
+15. Venda 420: Desconto de 5%
+16. Venda 450: Desconto de 5%
+17. Venda 480: Desconto de 5%
+18. Venda 495: Desconto de 5%
+19. Venda 510: Desconto de 5%
+20. Venda 570: Desconto de 5%
+21. Venda 588: Desconto de 60%
+22. Venda 600: Desconto de 5%
+23. Venda 615: Desconto de 5%
+24. Venda 630: Desconto de 5%
+25. Venda 780: Desconto de 5%
+26. Venda 795: Desconto de 5%
+27. Venda 810: Desconto de 5%
+28. Venda 825: Desconto de 5%
+29. Venda 855: Desconto de 10%
+30. Venda 885: Desconto de 5%
+31. Venda 945: Desconto de 5%
+32. Venda 951: Desconto de 55%
+33. Venda 960: Desconto de 5%
+34. Venda 975: Desconto de 5%
+35. Venda 1050: Desconto de 5%
+36. Venda 1125: Desconto de 5%
+37. Venda 1140: Desconto de 5%
+38. Venda 1155: Desconto de 5%
+39. Venda 1170: Desconto de 5%
+40. Venda 1200: Desconto de 5%
+41. Venda 1215: Desconto de 5%
+42. Venda 1245: Desconto de 5%
+43. Venda 1260: Desconto de 5%
+44. Venda 1290: Desconto de 5%
+45. Venda 1320: Desconto de 5%
+46. Venda 1350: Desconto de 5%
+47. Venda 1455: Desconto de 5%
+48. Venda 1485: Desconto de 5%
+49. Venda 1500: Desconto de 5%
+
+Essas vendas têm descontos que variam de 5% a 70%, o que não é o padrão de 5% aplicado a todas as vendas."
+"2026-11-07 18:19:42","qwen2.5-coder:3b",3,44,"dificil","anomalia",0,0,0.0,1,600.0,"",59.7,"TIMEOUT: o modelo não terminou a resposta em 600 s",""
+"2026-11-07 18:19:47","qwen2.5-coder:3b",3,45,"facil","anomalia",0,0,0.0,1,5.7,12.5,59.7,"","Sim, há uma inconsistência no estoque. A variável ""Camiseta Básica"" com o tamanho ""GG"" tem uma quantidade negativa (-5), o que não é possível."
+"2026-11-07 18:20:19","llama3.2:3b",1,1,"facil","texto_sql",1,1,1.0,1,5.7,9.7,48.9,"","SELECT COUNT(id) FROM clientes"
+"2026-11-07 18:20:26","llama3.2:3b",1,2,"facil","texto_sql",1,1,1.0,1,5.5,9.2,48.9,"","SELECT COUNT(v.id) FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:20:34","llama3.2:3b",1,3,"facil","texto_sql",1,1,1.0,1,5.3,9.1,48.9,"","SELECT COUNT(v.id) FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 18:20:43","llama3.2:3b",1,4,"facil","texto_sql",1,1,1.0,1,6.7,9.1,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:20:51","llama3.2:3b",1,5,"facil","texto_sql",1,1,1.0,1,6.6,8.9,48.9,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:20:58","llama3.2:3b",1,6,"facil","texto_sql",1,1,1.0,1,4.6,9.2,48.9,"","SELECT COUNT(DISTINCT p.id) FROM produtos p"
+"2026-11-07 18:21:05","llama3.2:3b",1,7,"facil","texto_sql",1,1,1.0,1,4.8,9.9,48.9,"","SELECT categoria FROM categorias ORDER BY categoria"
+"2026-11-07 18:21:12","llama3.2:3b",1,8,"facil","texto_sql",1,1,1.0,1,4.5,9.4,48.9,"","SELECT COUNT(f.id) FROM fornecedores f"
+"2026-11-07 18:21:21","llama3.2:3b",1,9,"facil","texto_sql",1,1,1.0,1,7.1,8.8,48.9,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv JOIN produtos p ON p.id = pv.produto_id"
+"2026-11-07 18:21:29","llama3.2:3b",1,10,"facil","texto_sql",1,1,1.0,1,5.8,9.1,48.9,"","SELECT COUNT(*) FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 18:21:41","llama3.2:3b",1,11,"media","texto_sql",1,1,1.0,1,9.2,8.7,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 18:21:58","llama3.2:3b",1,12,"media","texto_sql",0,1,1.0,2,15.0,8.3,48.9,"","SELECT e.uf, COUNT(*) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 18:22:42","llama3.2:3b",1,13,"media","texto_sql",0,0,0.0,2,42.3,6.6,48.9,"","SELECT m.marca, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 18:23:05","llama3.2:3b",1,14,"media","texto_sql",0,0,0.0,1,19.8,7.9,48.9,"","SELECT m.marca, SUM(vi.valor_total) AS soma FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY soma DESC LIMIT 1"
+"2026-11-07 18:23:16","llama3.2:3b",1,15,"media","texto_sql",0,0,0.0,1,8.6,8.3,48.9,"","SELECT COUNT(DISTINCT v.id) AS condicao_pagamento FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id GROUP BY cp.id"
+"2026-11-07 18:23:29","llama3.2:3b",1,16,"media","texto_sql",0,0,0.0,1,10.7,8.7,48.9,"","SELECT SUM(c.valor_subtotal) AS valor_total FROM compras c JOIN condicoes_pagamentos cp ON cp.id = c.condicao_pagamento_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO'"
+"2026-11-07 18:23:57","llama3.2:3b",1,17,"media","texto_sql",0,0,0.0,3,25.7,7.8,48.9,"Unknown column 'c.cidade' in 'field list'","SELECT c.cidade, COUNT(c.id) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados es ON es.id = ci.estado_id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 18:24:13","llama3.2:3b",1,18,"media","texto_sql",1,1,1.0,1,14.0,7.5,48.9,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id JOIN marcas m ON m.id = p.marca_id GROUP BY c.categoria"
+"2026-11-07 18:24:26","llama3.2:3b",1,19,"media","texto_sql",1,1,1.0,1,10.6,8.7,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01'"
+"2026-11-07 18:24:35","llama3.2:3b",1,20,"media","texto_sql",1,1,1.0,1,7.1,8.7,48.9,"","SELECT SUM(cr.valor_saldo) AS valor_total FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 18:24:56","llama3.2:3b",1,21,"dificil","texto_sql",0,0,0.0,1,18.1,8.3,48.9,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY c.categoria"
+"2026-11-07 18:25:09","llama3.2:3b",1,22,"dificil","texto_sql",0,0,0.0,1,11.3,8.6,48.9,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM clientes c JOIN vendas v ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 18:25:20","llama3.2:3b",1,23,"dificil","texto_sql",1,1,1.0,1,9.0,8.7,48.9,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) / COUNT(v.id) * 100 AS porcentagem_vendas_canceladas FROM vendas v"
+"2026-11-07 18:26:26","llama3.2:3b",1,24,"dificil","texto_sql",0,0,0.0,3,63.5,7.1,48.9,"Table 'erp_loja.compras_como_venda' doesn't exist","SELECT c.nome_razaosocial FROM clientes c JOIN condicoes_pagamentos cp ON cp.id = c.tipo_pessoa JOIN compras ON compras.id = cp.compra_id JOIN compras_como_venda ON compras_como_venda.compra_id = compras.id JOIN vendas ON vendas.id = compras_como_venda.venda_id WHERE vendas.status_venda = 'FINALIZADA' AND vendas.criado_em >= '2026-08-01' AND vendas.criado_em < '2027-01-01' AND cp.condicao_pagamento = 'NAO_INFORMAR'"
+"2026-11-07 18:26:51","llama3.2:3b",1,25,"dificil","texto_sql",0,1,1.0,2,22.1,8.1,48.9,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id GROUP BY p.produto, pv.cor, pv.tamanho, e.quantidade HAVING SUM(e.quantidade) < 5"
+"2026-11-07 18:27:08","llama3.2:3b",1,26,"dificil","texto_sql",0,0,0.0,1,15.0,8.6,48.9,"","SELECT ((SUM(v.valor_total) - SUM(vi.valor_total)) / SUM(vi.valor_total)) * 100 AS crescimento FROM vendas v JOIN vendas_itens vi ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em BETWEEN '2025-11-01' AND '2025-12-31'"
+"2026-11-07 18:27:22","llama3.2:3b",1,27,"dificil","texto_sql",0,0,0.0,1,12.0,8.6,48.9,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY p.produto ORDER BY quantidade DESC LIMIT 1"
+"2026-11-07 18:27:39","llama3.2:3b",1,28,"dificil","texto_sql",0,0,0.0,1,14.3,8.6,48.9,"","SELECT SUM(v.valor_total) / COUNT(DISTINCT v.status_venda) AS media FROM vendas v JOIN clientes c ON c.id = v.cliente_id JOIN estados e ON e.id = c.cidade_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01'"
+"2026-11-07 18:27:52","llama3.2:3b",1,29,"dificil","texto_sql",0,0,0.0,1,10.7,8.7,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%w') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' GROUP BY DATE_FORMAT(v.criado_em, '%w') ORDER BY dia_semana"
+"2026-11-07 18:28:51","llama3.2:3b",1,30,"dificil","texto_sql",0,0,0.0,3,56.7,7.1,48.9,"Unknown column 'cr.status_venda' in 'field list'","SELECT SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) / SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) * 100 AS percentual_aberto FROM contas_receber cr JOIN vendas v ON v.cliente_id = cr.cliente_id WHERE cr.data_vencimento < '2026-11-07'"
+"2026-11-07 18:29:23","llama3.2:3b",1,31,"facil","interpretacao",1,1,1.0,1,31.5,11.2,48.9,"","Para encontrar o mês com o maior faturamento e o valor correspondente, podemos analisar os dados fornecidos.
+
+O mês com o maior faturamento foi o mês de dezembro de 2025, com um faturamento de R$ 99079,88.
+
+Essa informação é sustentada pelos dados da tabela, que apresentam o faturamento mensal de cada mês do período considerado. A linha específica que indica o mês de dezembro de 2025 com o maior faturamento é a seguinte:
+
+| mes | faturamento |
+| --- | --- |
+| 2025-11 | 68542,85 |
+| 2025-12 | 99079,88 |
+| 2026-01 | 53561,51 |
+| 2026-02 | 30789,35 |
+| 2026-03 | 49625,03 |
+| 2026-04 | 58368,71 |
+| 2026-05 | 72972,65 |
+| 2026-06 | 67200,35 |
+| 2026-07 | 88006,25 |
+| 2026-08 | 62804,31 |
+| 2026-09 | 42738,87 |
+| 2026-10 | 55290,41 |
+
+Portanto, o mês de dezembro de 2025 teve o maior faturamento, com um valor de R$ 99079,88."
+"2026-11-07 18:29:41","llama3.2:3b",1,32,"facil","interpretacao",1,1,1.0,1,18.7,11.7,48.9,"","Para encontrar a categoria com o menor faturamento, precisamos comparar os valores da tabela.
+
+A categoria com o menor faturamento é os Acessórios, com um faturamento de R$ 7.975,80.
+
+Essa categoria está na linha 1 da tabela, com o id 1, e o valor é R$ 7.975,80.
+
+Aqui está a tabela novamente para referência:
+
+| categoria | faturamento |
+| --- | --- |
+| Acessórios | 7975,80 |
+| Bermudas | 57925,40 |
+| Calças | 157350,79 |
+| Camisas | 83764,30 |
+| Camisetas | 50695,50 |
+| Jaquetas | 201269,50 |
+| Saias | 82986,92 |
+| Vestidos | 129482,50 |"
+"2026-11-07 18:30:24","llama3.2:3b",1,33,"media","interpretacao",0,0,0.5,1,42.9,11.2,48.9,"","Para determinar a condição de pagamento mais usada e o percentual das vendas que ela representa, precisamos primeiro calcular o total de vendas para cada condição de pagamento.
+
+Vamos calcular o total de vendas para cada condição de pagamento:
+
+* Dinheiro à vista: 125
+* PIX à vista: 424
+* Débito à vista: 214
+* Crédito 1x: 294
+* Crédito 3x sem juros: 161
+* Crediário 2x: 91
+* Crediário 3x: 107
+
+Agora, vamos calcular o total de vendas para todas as condições de pagamento:
+
+Total de vendas = 125 + 424 + 214 + 294 + 161 + 91 + 107 = 1.250
+
+Agora, vamos calcular o percentual de cada condição de pagamento em relação ao total de vendas:
+
+* Dinheiro à vista: (125 / 1.250) x 100% ≈ 10%
+* PIX à vista: (424 / 1.250) x 100% ≈ 33,92%
+* Débito à vista: (214 / 1.250) x 100% ≈ 17,12%
+* Crédito 1x: (294 / 1.250) x 100% ≈ 23,52%
+* Crédito 3x sem juros: (161 / 1.250) x 100% ≈ 12,88%
+* Crediário 2x: (91 / 1.250) x 100% ≈ 7,28%
+* Crediário 3x: (107 / 1.250) x 100% ≈ 8,56%
+
+A condição de pagamento mais usada é o PIX à vista, com um total de 424 vendas, o que representa aproximadamente 33,92% do total de vendas.
+
+Portanto, a resposta é: a condição de pagamento PIX à vista foi a mais usada, representando aproximadamente 33,92% das vendas."
+"2026-11-07 18:30:39","llama3.2:3b",1,34,"media","interpretacao",1,1,1.0,1,14.7,11.8,48.9,"","Para calcular o percentual de clientes do Paraná (PR), precisamos saber o total de clientes e o número de clientes do Paraná.
+
+Primeiramente, vamos calcular o total de clientes:
+
+Total de clientes = 119 (PR) + 9 (RS) + 16 (SC) + 6 (SP) = 150
+
+Agora, vamos calcular o percentual de clientes do Paraná (PR):
+
+Percentual de PR = (Número de clientes do PR / Total de clientes) x 100
+= (119 / 150) x 100
+= 79,33%
+
+Portanto, aproximadamente 79,33% dos clientes são do Paraná (PR)."
+"2026-11-07 18:31:00","llama3.2:3b",1,35,"facil","interpretacao",0,0,0.0,1,21.1,11.7,48.9,"","Para calcular o total de vendas registradas, precisamos somar as vendas de todos os status.
+
+Vamos somar as vendas de cada status:
+
+- Vendas de status ABERTA: 7 vendas x R$ 4866,63 = R$ 34.061,61
+- Vendas de status FINALIZADA: 1416 vendas x R$ 748.980,17 = R$ 1.057.115.111,12
+- Vendas de status CANCELADA: 77 vendas x R$ 37.073,28 = R$ 2.846.111,16
+
+Agora, vamos somar esses valores:
+
+R$ 34.061,61 + R$ 1.057.115.111,12 + R$ 2.846.111,16 = R$ 1.058.916.288,89
+
+Portanto, o total de vendas registradas é de R$ 1.058.916.289."
+"2026-11-07 18:31:58","llama3.2:3b",1,36,"dificil","interpretacao",1,1,1.0,1,58.4,11.0,48.9,"","Para encontrar a categoria com a maior margem percentual, precisamos dividir a margem por faturamento para cada categoria e calcular o resultado em porcentagem.
+
+Vamos calcular a margem percentual para cada categoria:
+
+1. Acessórios:
+Margem: R$ 4.008,85
+Faturamento: R$ 7.975,80
+Margem percentual: (4.008,85 / 7.975,80) x 100% ≈ 50,35%
+
+2. Bermudas:
+Margem: R$ 28.937,70
+Faturamento: R$ 57.925,40
+Margem percentual: (28.937,70 / 57.925,40) x 100% ≈ 50,15%
+
+3. Calças:
+Margem: R$ 77.291,89
+Faturamento: R$ 157.350,79
+Margem percentual: (77.291,89 / 157.350,79) x 100% ≈ 49,04%
+
+4. Camisas:
+Margem: R$ 42.473,15
+Faturamento: R$ 83.764,30
+Margem percentual: (42.473,15 / 83.764,30) x 100% ≈ 50,59%
+
+5. Camisetas:
+Margem: R$ 25.584,00
+Faturamento: R$ 50.695,50
+Margem percentual: (25.584,00 / 50.695,50) x 100% ≈ 50,29%
+
+6. Jaquetas:
+Margem: R$ 100.052,74
+Faturamento: R$ 201.269,50
+Margem percentual: (100.052,74 / 201.269,50) x 100% ≈ 49,93%
+
+7. Saias:
+Margem: R$ 41.122,14
+Faturamento: R$ 82.986,92
+Margem percentual: (41.122,14 / 82.986,92) x 100% ≈ 49,55%
+
+8. Vestidos:
+Margem: R$ 65.133,71
+Faturamento: R$ 129.482,50
+Margem percentual: (65.133,71 / 129.482,50) x 100% ≈ 50,27%
+
+A categoria com a maior margem percentual é a Jaquetas, com uma margem percentual de aproximadamente 49,93%.
+
+Essa categoria tem a maior margem percentual porque a margem (R$ 100.052,74) é muito próxima do faturamento (R$ 201.269,50), o que indica que a Jaquetas é uma categoria muito rentável para a loja."
+"2026-11-07 18:32:16","llama3.2:3b",1,37,"media","resumo",0,0,0.0,1,17.6,11.5,48.9,"","Resumo Executivo:
+
+O faturamento mensal da loja de roupas apresentou uma evolução variada ao longo do período de 01/11/2025 a 31/10/2026. Em geral, o faturamento cresceu ao longo do ano, com picos em 2026-07 (88006,25 R$) e 2026-05 (72972,65 R$). No entanto, houve um declínio nos meses de 2026-02 (30789,35 R$) e 2026-09 (42738,87 R$). O faturamento mensal apresentou um aumento significativo nos meses de 2026-01 a 2026-10, com exceção de 2026-02."
+"2026-11-07 18:32:33","llama3.2:3b",1,38,"media","resumo",1,1,1.0,1,16.7,11.6,48.9,"","Resumo Executivo:
+
+O desempenho de vendas por categoria apresentou variações significativas ao longo do período de 01/11/2025 a 31/10/2026. As categorias mais bem-sucedidas foram as Calças, com faturamento de R$ 157.350.79 e margem de 77.291.89%, seguidas pelas Jaquetas, com faturamento de R$ 201.269.50 e margem de 100.052.74%. As categorias com desempenho menos bom foram as Camisetas e Acessórios, com faturamento de R$ 50.695,50 e R$ 7.975,80, respectivamente."
+"2026-11-07 18:32:45","llama3.2:3b",1,39,"media","resumo",1,1,1.0,1,12.3,11.8,48.9,"","Resumo Executivo:
+
+A situação das contas a receber está sob controle, com apenas 1 conta a receber (id: 406) que foi recebida em 01/11/2025. A conta em aberto, com id: 55, tem valor original de R$ 10.252,22 e saldo de R$ 0,00. As contas a vencer, com id: 42, têm valor original de R$ 8.305,48 e saldo de R$ 8.305,48."
+"2026-11-07 18:33:02","llama3.2:3b",1,40,"dificil","resumo",0,0,0.75,1,16.5,11.7,48.9,"","Resumo Executivo:
+
+O período de 01/11/2025 a 31/10/2026 apresentou resultados comerciais significativos. 
+
+- A venda total foi de R$ 1.046.820,00, com 1.844 transações (7 + 1416 + 77).
+- A média de ticket foi de R$ 528,94, com 1.844 transações.
+- A taxa de descontos foi de 63,67% (descontos/R$ 695,23).
+- A maior categoria de status de venda foi FINALIZADA, com 1416 transações.
+
+Esses indicadores mostram uma tendência de crescimento e eficiência na venda de roupas durante o período."
+"2026-11-07 18:33:52","llama3.2:3b",1,41,"media","anomalia",1,1,1.0,1,50.0,10.9,48.9,"","Para identificar uma semana com volume de vendas fora do padrão, precisamos analisar os dados e compará-los com o padrão geral.
+
+Primeiramente, vamos calcular a média das vendas para o período de 1 ano, considerando apenas as semanas com vendas:
+
+Vendas totais: 34 + 30 + 40 + 27 + 19 + 21 + 34 + 35 + 29 + 19 + 102 + 26 + 21 + 22 + 21 + 24 + 27 + 22 = 501
+
+Número de semanas: 18
+
+Média das vendas: 501 / 18 ≈ 27,72
+
+Agora, vamos comparar cada semana com a média:
+
+- 2026-05-04: 34 (acima da média)
+- 2026-05-11: 30 (abaixo da média)
+- 2026-05-18: 40 (acima da média)
+- 2026-05-25: 27 (abaixo da média)
+- 2026-06-01: 19 (abaixo da média)
+- 2026-06-08: 21 (abaixo da média)
+- 2026-06-15: 34 (acima da média)
+- 2026-06-22: 35 (acima da média)
+- 2026-06-29: 29 (abaixo da média)
+- 2026-07-06: 19 (abaixo da média)
+- 2026-07-13: 102 (acima da média)
+- 2026-07-20: 26 (abaixo da média)
+- 2026-07-27: 21 (abaixo da média)
+- 2026-08-03: 22 (abaixo da média)
+- 2026-08-10: 21 (abaixo da média)
+- 2026-08-17: 24 (abaixo da média)
+- 2026-08-24: 27 (abaixo da média)
+- 2026-08-31: 22 (abaixo da média)
+
+Apenas uma semana está acima da média: 2026-07-13, com 102 reais de vendas."
+"2026-11-07 18:34:32","llama3.2:3b",1,42,"media","anomalia",1,1,1.0,1,40.5,9.0,48.9,"","Após analisar os dados, é possível identificar um cliente com valor de compras muito diferente dos demais. O cliente com o valor de compras mais alto é Vitória Nunes Pereira, com um total de R$ 11.894,28.
+
+Isso se destaca porque o valor de compras de Vitória é significativamente maior do que o valor de compras de qualquer outro cliente. Por exemplo, o cliente com o segundo valor de compras mais alto é Lucas Ferreira Kowalski, com um total de R$ 59.619,85, que é cerca de 5 vezes menor que o valor de compras de Vitória.
+
+Além disso, é possível notar que Vitória tem um número elevado de vendas, com 23 transações, o que também contribui para o valor de compras alto.
+
+É importante notar que não há informações sobre a data de nascimento, idade ou outros dados pessoais que possam ajudar a entender melhor o comportamento de Vitória. No entanto, é possível dizer que ela é um cliente muito ativo e que tem um valor de compras muito alto em comparação com os demais clientes.
+
+Aqui estão os dados que sustentam essa resposta:
+
+* Id: 20
+* Nome: Vitória Nunes Pereira
+* Vendas: 23
+* Total: R$ 11.894,28
+* Valor de compras mais alto: R$ 59.619,85 (Lucas Ferreira Kowalski, id 42)"
+"2026-11-07 18:42:00","llama3.2:3b",1,43,"media","anomalia",0,0,0.186,1,447.7,5.9,48.9,"","Para identificar as vendas que têm desconto fora do padrão, precisamos analisar os dados fornecidos.
+
+Primeiramente, observamos que há dois tipos de descontos: descontos percentuais de 5% e descontos percentuais de 10%. 
+
+Vamos analisar cada venda:
+
+1. Venda 15: Desconto de 10% (10.0000). Valor subtotal: 1073,40. Valor total: 966,06. O desconto é de 107,34 (10% de 1073,40). O desconto é dentro do padrão.
+
+2. Venda 39: Desconto de 70% (70.0000). Valor subtotal: 656,70. Valor total: 197,01. O desconto é de 459,69 (70% de 656,70). O desconto é fora do padrão.
+
+3. Venda 60: Desconto de 5% (5.0000). Valor subtotal: 675,60. Valor total: 641,82. O desconto é de 33,78 (5% de 675,60). O desconto é dentro do padrão.
+
+4. Venda 75: Desconto de 5% (5.0000). Valor subtotal: 17,55. Valor total: 16,67. O desconto é de 0,88 (5% de 17,55). O desconto é dentro do padrão.
+
+5. Venda 120: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+6. Venda 150: Desconto de 5% (5.0000). Valor subtotal: 1414,50. Valor total: 1343,77. O desconto é de 70,73 (5% de 1414,50). O desconto é fora do padrão.
+
+7. Venda 180: Desconto de 10% (10.0000). Valor subtotal: 257,80. Valor total: 232,02. O desconto é de 25,78 (10% de 257,80). O desconto é dentro do padrão.
+
+8. Venda 195: Desconto de 10% (10.0000). Valor subtotal: 178,90. Valor total: 161,01. O desconto é de 17,89 (10% de 178,90). O desconto é dentro do padrão.
+
+9. Venda 210: Desconto de 5% (5.0000). Valor subtotal: 1024,50. Valor total: 973,27. O desconto é de 51,23 (5% de 1024,50). O desconto é fora do padrão.
+
+10. Venda 255: Desconto de 10% (10.0000). Valor subtotal: 1694,50. Valor total: 1525,05. O desconto é de 169,45 (10% de 1694,50). O desconto é fora do padrão.
+
+11. Venda 265: Desconto de 70% (70.0000). Valor subtotal: 755,60. Valor total: 226,68. O desconto é de 528,92 (70% de 755,60). O desconto é fora do padrão.
+
+12. Venda 270: Desconto de 5% (5.0000). Valor subtotal: 406,70. Valor total: 386,36. O desconto é de 20,34 (5% de 406,70). O desconto é dentro do padrão.
+
+13. Venda 300: Desconto de 5% (5.0000). Valor subtotal: 218,90. Valor total: 207,95. O desconto é de 10,95 (5% de 218,90). O desconto é dentro do padrão.
+
+14. Venda 315: Desconto de 5% (5.0000). Valor subtotal: 784,50. Valor total: 745,27. O desconto é de 39,23 (5% de 784,50). O desconto é dentro do padrão.
+
+15. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+16. Venda 450: Desconto de 5% (5.0000). Valor subtotal: 810,29. Valor total: 769,78. O desconto é de 40,51 (5% de 810,29). O desconto é dentro do padrão.
+
+17. Venda 480: Desconto de 5% (5.0000). Valor subtotal: 357,80. Valor total: 339,91. O desconto é de 17,89 (5% de 357,80). O desconto é dentro do padrão.
+
+18. Venda 495: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+19. Venda 510: Desconto de 5% (5.0000). Valor subtotal: 466,70. Valor total: 443,36. O desconto é de 23,34 (5% de 466,70). O desconto é dentro do padrão.
+
+20. Venda 570: Desconto de 5% (5.0000). Valor subtotal: 477,80. Valor total: 453,91. O desconto é de 23,89 (5% de 477,80). O desconto é dentro do padrão.
+
+21. Venda 588: Desconto de 60% (60.0000). Valor subtotal: 527,80. Valor total: 211,12. O desconto é de 316,68 (60% de 527,80). O desconto é fora do padrão.
+
+22. Venda 600: Desconto de 5% (5.0000). Valor subtotal: 208,90. Valor total: 198,45. O desconto é de 10,45 (5% de 208,90). O desconto é dentro do padrão.
+
+23. Venda 615: Desconto de 5% (5.0000). Valor subtotal: 835,60. Valor total: 793,82. O desconto é de 41,78 (5% de 835,60). O desconto é dentro do padrão.
+
+24. Venda 630: Desconto de 5% (5.0000). Valor subtotal: 865,60. Valor total: 822,32. O desconto é de 43,28 (5% de 865,60). O desconto é dentro do padrão.
+
+25. Venda 780: Desconto de 5% (5.0000). Valor subtotal: 1552,30. Valor total: 1474,68. O desconto é de 22,38 (5% de 1552,30). O desconto é dentro do padrão.
+
+26. Venda 795: Desconto de 5% (5.0000). Valor subtotal: 535,60. Valor total: 508,82. O desconto é de 26,78 (5% de 535,60). O desconto é dentro do padrão.
+
+27. Venda 810: Desconto de 5% (5.0000). Valor subtotal: 546,70. Valor total: 519,36. O desconto é de 27,34 (5% de 546,70). O desconto é dentro do padrão.
+
+28. Venda 825: Desconto de 5% (5.0000). Valor subtotal: 298,90. Valor total: 283,95. O desconto é de 14,95 (5% de 298,90). O desconto é dentro do padrão.
+
+29. Venda 855: Desconto de 10% (10.0000). Valor subtotal: 874,50. Valor total: 787,05. O desconto é de 87,45 (10% de 874,50). O desconto é fora do padrão.
+
+30. Venda 885: Desconto de 5% (5.0000). Valor subtotal: 327,80. Valor total: 311,41. O desconto é de 16,39 (5% de 327,80). O desconto é dentro do padrão.
+
+31. Venda 945: Desconto de 5% (5.0000). Valor subtotal: 446,70. Valor total: 424,36. O desconto é de 22,34 (5% de 446,70). O desconto é dentro do padrão.
+
+32. Venda 951: Desconto de 55% (55.0000). Valor subtotal: 1134,50. Valor total: 510,52. O desconto é de 623,98 (55% de 1134,50). O desconto é fora do padrão.
+
+33. Venda 960: Desconto de 5% (5.0000). Valor subtotal: 366,70. Valor total: 348,36. O desconto é de 18,34 (5% de 366,70). O desconto é dentro do padrão.
+
+34. Venda 975: Desconto de 5% (5.0000). Valor subtotal: 525,60. Valor total: 499,32. O desconto é de 26,28 (5% de 525,60). O desconto é dentro do padrão.
+
+35. Venda 1050: Desconto de 5% (5.0000). Valor subtotal: 586,70. Valor total: 557,36. O desconto é de 29,34 (5% de 586,70). O desconto é dentro do padrão.
+
+36. Venda 1125: Desconto de 5% (5.0000). Valor subtotal: 716,70. Valor total: 680,86. O desconto é de 35,84 (5% de 716,70). O desconto é dentro do padrão.
+
+37. Venda 1140: Desconto de 5% (5.0000). Valor subtotal: 238,90. Valor total: 226,95. O desconto é de 11,95 (5% de 238,90). O desconto é dentro do padrão.
+
+38. Venda 1155: Desconto de 5% (5.0000). Valor subtotal: 2061,20. Valor total: 1958,14. O desconto é de 103,06 (5% de 2061,20). O desconto é dentro do padrão.
+
+39. Venda 1170: Desconto de 5% (5.0000). Valor subtotal: 1462,30. Valor total: 1389,18. O desconto é de 73,12 (5% de 1462,30). O desconto é fora do padrão.
+
+40. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+Apenas 4 vendas apresentam descontos fora do padrão: Vendas 588, 265, 855 e 1170."
+"2026-11-07 18:43:11","llama3.2:3b",1,44,"dificil","anomalia",0,0,0.364,1,70.8,9.2,48.9,"","Para identificar itens vendidos por preços que não fazem sentido, precisamos analisar os preços de venda e os preços de custo para cada item.
+
+Aqui estão alguns exemplos de itens vendidos por preços que não parecem razoáveis:
+
+1. **Item 394**: O item com o id 394 foi vendido por R$ 118,90, mas o preço de custo é de R$ 58,96. Isso significa que o item foi vendido por cerca de 2,02 vezes o preço de custo, o que não parece razoável.
+2. **Item 450**: O item com o id 450 foi vendido por R$ 238,90, mas o preço de custo é de R$ 112,92. Isso significa que o item foi vendido por cerca de 2,12 vezes o preço de custo, o que não parece razoável.
+3. **Item 640**: O item com o id 640 foi vendido por R$ 358,90, mas o preço de custo é de R$ 56,91. Isso significa que o item foi vendido por cerca de 6,31 vezes o preço de custo, o que parece extremamente razoável.
+4. **Item 880**: O item com o id 880 foi vendido por R$ 238,90, mas o preço de custo é de R$ 124,58. Isso significa que o item foi vendido por cerca de 1,92 vezes o preço de custo, o que não parece razoável.
+5. **Item 960**: O item com o id 960 foi vendido por R$ 198,90, mas o preço de custo é de R$ 94,09. Isso significa que o item foi vendido por cerca de 2,12 vezes o preço de custo, o que não parece razoável.
+6. **Item 1200**: O item com o id 1200 foi vendido por R$ 238,90, mas o preço de custo é de R$ 122,85. Isso significa que o item foi vendido por cerca de 1,93 vezes o preço de custo, o que não parece razoável.
+7. **Item 1280**: O item com o id 1280 foi vendido por R$ 298,90, mas o preço de custo é de R$ 147,68. Isso significa que o item foi vendido por cerca de 2,03 vezes o preço de custo, o que não parece razoável.
+
+Esses são apenas alguns exemplos de itens vendidos por preços que não parecem razoáveis. É importante notar que a análise de preços pode variar dependendo do contexto e da estratégia de negócios da loja."
+"2026-11-07 18:44:13","llama3.2:3b",1,45,"facil","anomalia",0,0,0.429,1,62.9,9.4,48.9,"","Após analisar os dados, identifiquei algumas inconsistências e variações no estoque:
+
+1. **Camiseta Estampada - Cinza - GG**: A quantidade de 65 (id: 13) é menor que a quantidade de 65 (id: 57) e 62 (id: 58). Isso pode indicar uma inconsistência na contagem de estoque.
+2. **Camisa Linho - Bege - GG**: A quantidade de 62 (id: 51) é menor que a quantidade de 62 (id: 50) e 62 (id: 51). Isso pode indicar uma inconsistência na contagem de estoque.
+3. **Camisa Xadrez - Bege - GG**: A quantidade de 35 (id: 59) é menor que a quantidade de 35 (id: 57) e 35 (id: 59). Isso pode indicar uma inconsistência na contagem de estoque.
+4. **Vestido Tubinho - Cinza - P**: A quantidade de 0 (id: 144) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+5. **Vestido Floral - Vermelho - G**: A quantidade de -2 (id: 151) é uma quantidade negativa, o que pode indicar uma falta de estoque ou um erro na contagem de estoque.
+6. **Jacarta Jeans - Rosa - GG**: A quantidade de 0 (id: 188) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+
+Além disso, observei que há alguns produtos com quantidades muito baixas ou nulas, como:
+
+* Camiseta Estampada - Cinza - GG (id: 13, 57, 58)
+* Camisa Linho - Bege - GG (id: 51, 50, 51)
+* Camisa Xadrez - Bege - GG (id: 57, 59, 58)
+* Vestido Tubinho - Cinza - P (id: 144)
+* Vestido Floral - Vermelho - G (id: 151)
+* Jacarta Jeans - Rosa - GG (id: 188)
+
+Essas variações podem indicar uma falta de estoque, uma quantidade muito baixa ou um erro na contagem de estoque. É importante investigar essas inconsistências e verificar a situação do estoque para tomar medidas corretivas."
+"2026-11-07 18:44:20","llama3.2:3b",2,1,"facil","texto_sql",1,1,1.0,1,4.3,9.5,48.9,"","SELECT COUNT(id) FROM clientes"
+"2026-11-07 18:44:28","llama3.2:3b",2,2,"facil","texto_sql",1,1,1.0,1,5.7,8.6,48.9,"","SELECT COUNT(v.id) FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:44:36","llama3.2:3b",2,3,"facil","texto_sql",1,1,1.0,1,5.7,8.6,48.9,"","SELECT COUNT(v.status_venda) FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 18:44:45","llama3.2:3b",2,4,"facil","texto_sql",1,1,1.0,1,6.9,8.5,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:44:55","llama3.2:3b",2,5,"facil","texto_sql",1,1,1.0,1,7.5,6.9,48.9,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 18:45:01","llama3.2:3b",2,6,"facil","texto_sql",1,1,1.0,1,4.7,8.5,48.9,"","SELECT COUNT(DISTINCT p.id) FROM produtos p"
+"2026-11-07 18:45:09","llama3.2:3b",2,7,"facil","texto_sql",1,1,1.0,1,4.9,9.2,48.9,"","SELECT categoria FROM categorias ORDER BY categoria"
+"2026-11-07 18:45:15","llama3.2:3b",2,8,"facil","texto_sql",1,1,1.0,1,4.5,8.8,48.9,"","SELECT COUNT(f.id) FROM fornecedores f"
+"2026-11-07 18:45:25","llama3.2:3b",2,9,"facil","texto_sql",1,1,1.0,1,7.4,8.2,48.9,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv JOIN produtos p ON p.id = pv.produto_id"
+"2026-11-07 18:45:33","llama3.2:3b",2,10,"facil","texto_sql",1,1,1.0,1,6.0,8.4,48.9,"","SELECT COUNT(*) FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 18:45:45","llama3.2:3b",2,11,"media","texto_sql",1,1,1.0,1,9.8,8.0,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 18:46:02","llama3.2:3b",2,12,"media","texto_sql",0,1,1.0,2,15.3,8.4,48.9,"","SELECT e.uf, COUNT(*) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 18:46:47","llama3.2:3b",2,13,"media","texto_sql",0,0,0.0,2,41.7,6.9,48.9,"","SELECT m.marca, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 18:47:10","llama3.2:3b",2,14,"media","texto_sql",0,0,0.0,1,20.6,7.5,48.9,"","SELECT m.marca, SUM(vi.valor_total) AS soma FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY soma DESC LIMIT 1"
+"2026-11-07 18:47:22","llama3.2:3b",2,15,"media","texto_sql",0,0,0.0,1,9.7,6.8,48.9,"","SELECT COUNT(DISTINCT v.id) AS condicao_pagamento FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id GROUP BY cp.id"
+"2026-11-07 18:47:35","llama3.2:3b",2,16,"media","texto_sql",0,0,0.0,1,10.8,8.3,48.9,"","SELECT SUM(c.valor_subtotal) AS valor_total FROM compras c JOIN condicoes_pagamentos cp ON cp.id = c.condicao_pagamento_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO'"
+"2026-11-07 18:48:04","llama3.2:3b",2,17,"media","texto_sql",0,0,0.0,3,26.4,7.6,48.9,"Unknown column 'c.cidade' in 'field list'","SELECT c.cidade, COUNT(c.id) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados es ON es.id = ci.estado_id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 18:48:19","llama3.2:3b",2,18,"media","texto_sql",1,1,1.0,1,12.8,8.6,48.9,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id JOIN marcas m ON m.id = p.marca_id GROUP BY c.categoria"
+"2026-11-07 18:48:32","llama3.2:3b",2,19,"media","texto_sql",1,1,1.0,1,10.6,8.6,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01'"
+"2026-11-07 18:48:41","llama3.2:3b",2,20,"media","texto_sql",1,1,1.0,1,7.1,8.8,48.9,"","SELECT SUM(cr.valor_saldo) AS valor_total FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 18:49:03","llama3.2:3b",2,21,"dificil","texto_sql",0,0,0.0,1,19.9,7.4,48.9,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY c.categoria"
+"2026-11-07 18:49:17","llama3.2:3b",2,22,"dificil","texto_sql",0,0,0.0,1,11.5,8.1,48.9,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM clientes c JOIN vendas v ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 18:49:29","llama3.2:3b",2,23,"dificil","texto_sql",1,1,1.0,1,9.3,8.3,48.9,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) / COUNT(v.id) * 100 AS porcentagem_vendas_canceladas FROM vendas v"
+"2026-11-07 18:50:38","llama3.2:3b",2,24,"dificil","texto_sql",0,0,0.0,3,66.3,6.7,48.9,"Table 'erp_loja.compras_como_venda' doesn't exist","SELECT c.nome_razaosocial FROM clientes c JOIN condicoes_pagamentos cp ON cp.id = c.tipo_pessoa JOIN compras ON compras.id = cp.compra_id JOIN compras_como_venda ON compras_como_venda.compra_id = compras.id JOIN vendas ON vendas.id = compras_como_venda.venda_id WHERE vendas.status_venda = 'FINALIZADA' AND vendas.criado_em >= '2026-08-01' AND vendas.criado_em < '2027-01-01' AND cp.condicao_pagamento = 'NAO_INFORMAR'"
+"2026-11-07 18:51:02","llama3.2:3b",2,25,"dificil","texto_sql",0,1,1.0,2,22.1,8.1,48.9,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id GROUP BY p.produto, pv.cor, pv.tamanho, e.quantidade HAVING SUM(e.quantidade) < 5"
+"2026-11-07 18:51:20","llama3.2:3b",2,26,"dificil","texto_sql",0,0,0.0,1,15.1,8.5,48.9,"","SELECT ((SUM(v.valor_total) - SUM(vi.valor_total)) / SUM(vi.valor_total)) * 100 AS crescimento FROM vendas v JOIN vendas_itens vi ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em BETWEEN '2025-11-01' AND '2025-12-31'"
+"2026-11-07 18:51:34","llama3.2:3b",2,27,"dificil","texto_sql",0,0,0.0,1,12.2,8.6,48.9,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY p.produto ORDER BY quantidade DESC LIMIT 1"
+"2026-11-07 18:51:51","llama3.2:3b",2,28,"dificil","texto_sql",0,0,0.0,1,14.0,8.7,48.9,"","SELECT SUM(v.valor_total) / COUNT(DISTINCT v.status_venda) AS media FROM vendas v JOIN clientes c ON c.id = v.cliente_id JOIN estados e ON e.id = c.cidade_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01'"
+"2026-11-07 18:52:03","llama3.2:3b",2,29,"dificil","texto_sql",0,0,0.0,1,10.7,8.7,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%w') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' GROUP BY DATE_FORMAT(v.criado_em, '%w') ORDER BY dia_semana"
+"2026-11-07 18:53:04","llama3.2:3b",2,30,"dificil","texto_sql",0,0,0.0,3,58.3,6.7,48.9,"Unknown column 'cr.status_venda' in 'field list'","SELECT SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) / SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) * 100 AS percentual_aberto FROM contas_receber cr JOIN vendas v ON v.cliente_id = cr.cliente_id WHERE cr.data_vencimento < '2026-11-07'"
+"2026-11-07 18:53:16","llama3.2:3b",2,31,"facil","interpretacao",1,1,1.0,1,11.8,10.6,48.9,"","Para encontrar o mês com o maior faturamento e o valor correspondente, podemos analisar os dados fornecidos.
+
+O mês com o maior faturamento foi o mês de dezembro de 2025, com um faturamento de R$ 99079,88.
+
+Essa informação é baseada nos dados da tabela, que apresenta os faturamentos mensais de 01/11/2025 a 31/10/2026."
+"2026-11-07 18:53:34","llama3.2:3b",2,32,"facil","interpretacao",1,1,1.0,1,17.9,10.7,48.9,"","Para encontrar a categoria com o menor faturamento, precisamos comparar os valores da tabela.
+
+A categoria com o menor faturamento é os Acessórios, com um faturamento de R$ 7.975,80.
+
+Essa categoria está na linha 1 da tabela, com o id 1, e o faturamento é o valor 7975,80.
+
+Aqui está a tabela novamente para referência:
+
+categoria	faturamento
+Acessórios	7975.80
+Bermudas	57925.40
+Calças	157350.79
+Camisas	83764.30
+Camisetas	50695.50
+Jaquetas	201269.50
+Saias	82986.92
+Vestidos	129482.50"
+"2026-11-07 18:54:18","llama3.2:3b",2,33,"media","interpretacao",0,0,0.5,1,44.2,10.8,48.9,"","Para determinar a condição de pagamento mais usada e o percentual das vendas que ela representa, precisamos primeiro calcular o total de vendas para cada condição de pagamento.
+
+Vamos calcular o total de vendas para cada condição de pagamento:
+
+* Dinheiro à vista: 125
+* PIX à vista: 424
+* Débito à vista: 214
+* Crédito 1x: 294
+* Crédito 3x sem juros: 161
+* Crediário 2x: 91
+* Crediário 3x: 107
+
+Agora, vamos calcular o total de vendas para todas as condições de pagamento:
+
+Total de vendas = 125 + 424 + 214 + 294 + 161 + 91 + 107 = 1.250
+
+Agora, vamos calcular o percentual de cada condição de pagamento em relação ao total de vendas:
+
+* Dinheiro à vista: (125 / 1.250) x 100% ≈ 10%
+* PIX à vista: (424 / 1.250) x 100% ≈ 33,92%
+* Débito à vista: (214 / 1.250) x 100% ≈ 17,12%
+* Crédito 1x: (294 / 1.250) x 100% ≈ 23,52%
+* Crédito 3x sem juros: (161 / 1.250) x 100% ≈ 12,88%
+* Crediário 2x: (91 / 1.250) x 100% ≈ 7,28%
+* Crediário 3x: (107 / 1.250) x 100% ≈ 8,56%
+
+A condição de pagamento mais usada é o PIX à vista, com um total de 424 vendas, o que representa aproximadamente 33,92% do total de vendas.
+
+Portanto, a resposta é: a condição de pagamento PIX à vista foi a mais usada, representando aproximadamente 33,92% das vendas."
+"2026-11-07 18:54:33","llama3.2:3b",2,34,"media","interpretacao",1,1,1.0,1,14.9,11.5,48.9,"","Para calcular o percentual de clientes do Paraná (PR), precisamos saber o total de clientes e o número de clientes do Paraná.
+
+Primeiramente, vamos calcular o total de clientes:
+
+Total de clientes = 119 (PR) + 9 (RS) + 16 (SC) + 6 (SP) = 150
+
+Agora, vamos calcular o percentual de clientes do Paraná (PR):
+
+Percentual de PR = (Número de clientes do PR / Total de clientes) x 100
+= (119 / 150) x 100
+= 79,33%
+
+Portanto, aproximadamente 79,33% dos clientes são do Paraná (PR)."
+"2026-11-07 18:54:54","llama3.2:3b",2,35,"facil","interpretacao",0,0,0.0,1,21.1,11.5,48.9,"","Para calcular o total de vendas registradas, precisamos somar as vendas de todos os status.
+
+Vamos somar as vendas de cada status:
+
+- Vendas de status ABERTA: 7 vendas x R$ 4866,63 = R$ 34.061,61
+- Vendas de status FINALIZADA: 1416 vendas x R$ 748.980,17 = R$ 1.057.115.111,12
+- Vendas de status CANCELADA: 77 vendas x R$ 37.073,28 = R$ 2.846.111,16
+
+Agora, vamos somar esses valores:
+
+R$ 34.061,61 + R$ 1.057.115.111,12 + R$ 2.846.111,16 = R$ 1.058.916.288,89
+
+Portanto, o total de vendas registradas é de R$ 1.058.916.289."
+"2026-11-07 18:55:53","llama3.2:3b",2,36,"dificil","interpretacao",1,1,1.0,1,58.5,10.9,48.9,"","Para encontrar a categoria com a maior margem percentual, precisamos dividir a margem por faturamento para cada categoria e calcular o resultado em porcentagem.
+
+Vamos calcular a margem percentual para cada categoria:
+
+1. Acessórios:
+Margem: R$ 4.008,85
+Faturamento: R$ 7.975,80
+Margem percentual: (4.008,85 / 7.975,80) x 100% ≈ 50,35%
+
+2. Bermudas:
+Margem: R$ 28.937,70
+Faturamento: R$ 57.925,40
+Margem percentual: (28.937,70 / 57.925,40) x 100% ≈ 50,15%
+
+3. Calças:
+Margem: R$ 77.291,89
+Faturamento: R$ 157.350,79
+Margem percentual: (77.291,89 / 157.350,79) x 100% ≈ 49,04%
+
+4. Camisas:
+Margem: R$ 42.473,15
+Faturamento: R$ 83.764,30
+Margem percentual: (42.473,15 / 83.764,30) x 100% ≈ 50,59%
+
+5. Camisetas:
+Margem: R$ 25.584,00
+Faturamento: R$ 50.695,50
+Margem percentual: (25.584,00 / 50.695,50) x 100% ≈ 50,29%
+
+6. Jaquetas:
+Margem: R$ 100.052,74
+Faturamento: R$ 201.269,50
+Margem percentual: (100.052,74 / 201.269,50) x 100% ≈ 49,93%
+
+7. Saias:
+Margem: R$ 41.122,14
+Faturamento: R$ 82.986,92
+Margem percentual: (41.122,14 / 82.986,92) x 100% ≈ 49,55%
+
+8. Vestidos:
+Margem: R$ 65.133,71
+Faturamento: R$ 129.482,50
+Margem percentual: (65.133,71 / 129.482,50) x 100% ≈ 50,27%
+
+A categoria com a maior margem percentual é a Jaquetas, com uma margem percentual de aproximadamente 49,93%.
+
+Essa categoria tem a maior margem percentual porque a margem (R$ 100.052,74) é muito próxima do faturamento (R$ 201.269,50), o que indica que a Jaquetas é uma categoria muito rentável para a loja."
+"2026-11-07 18:56:11","llama3.2:3b",2,37,"media","resumo",0,0,0.0,1,18.4,10.9,48.9,"","Resumo Executivo:
+
+O faturamento mensal da loja de roupas apresentou uma evolução variada ao longo do período de 01/11/2025 a 31/10/2026. Em geral, o faturamento cresceu ao longo do ano, com picos em 2026-07 (88006,25 R$) e 2026-05 (72972,65 R$). No entanto, houve um declínio nos meses de 2026-02 (30789,35 R$) e 2026-09 (42738,87 R$). O faturamento mensal apresentou um aumento significativo nos meses de 2026-01 a 2026-10, com exceção do mês de 2026-02."
+"2026-11-07 18:56:29","llama3.2:3b",2,38,"media","resumo",1,1,1.0,1,17.5,10.7,48.9,"","Resumo Executivo:
+
+O desempenho de vendas por categoria apresentou variações significativas ao longo do período de 01/11/2025 a 31/10/2026. As categorias mais bem-sucedidas foram as Calças, com faturamento de R$ 157.350.79 e margem de 77.291.89%, seguidas pelas Jaquetas, com faturamento de R$ 201.269.50 e margem de 100.052.74%. As categorias com desempenho menos bom foram as Camisetas e Acessórios, com faturamento de R$ 50.695,50 e R$ 7.975,80, respectivamente."
+"2026-11-07 18:56:42","llama3.2:3b",2,39,"media","resumo",0,0,0.333,1,13.9,10.9,48.9,"","Resumo Executivo:
+
+A situação das contas a receber está sob controle, com apenas 1 conta a receber (id: 406) que foi recebida em 01/11/2025. A conta de id: 406 tem um valor original de R$ 86.857,16 e um saldo de R$ 0,00, indicando que a conta foi paga integralmente. As contas a receber com status ""ABERTA"" têm um total de 407 contas, mas todas elas estão pagas, pois o saldo é igual ao valor original."
+"2026-11-07 18:57:00","llama3.2:3b",2,40,"dificil","resumo",0,0,0.75,1,17.6,11.3,48.9,"","Resumo Executivo:
+
+O período de 01/11/2025 a 31/10/2026 apresentou resultados comerciais significativos. 
+
+- A venda total foi de R$ 1.046.820,00, com 1.844 transações (7 ABERTA + 1416 FINALIZADA + 77 CANCELADA).
+- O valor médio de cada ticket foi de R$ 528,94 (FINALIZADA), com um desconto médio de R$ 63,67 (FINALIZADA).
+- A maior despesa foi em produtos com descontos, com um total de R$ 224.70 (FINALIZADA).
+
+Esses resultados indicam uma boa performance comercial, com vendas significativas e um valor médio de cada transação razoável."
+"2026-11-07 18:57:57","llama3.2:3b",2,41,"media","anomalia",1,1,1.0,1,56.6,10.5,48.9,"","Para identificar uma semana com volume de vendas fora do padrão, precisamos analisar os dados e compará-los com o padrão geral.
+
+Primeiramente, vamos calcular a média das vendas para o período de 1 ano, considerando apenas as semanas com vendas:
+
+Vendas totais: 34 + 30 + 40 + 27 + 19 + 21 + 34 + 35 + 29 + 19 + 102 + 26 + 21 + 22 + 21 + 24 + 27 + 22 = 501
+
+Número de semanas: 18
+
+Média das vendas: 501 / 18 ≈ 27,72
+
+Agora, vamos comparar cada semana com a média:
+
+- 2026-05-04: 34 (acima da média)
+- 2026-05-11: 30 (abaixo da média)
+- 2026-05-18: 40 (acima da média)
+- 2026-05-25: 27 (abaixo da média)
+- 2026-06-01: 19 (abaixo da média)
+- 2026-06-08: 21 (abaixo da média)
+- 2026-06-15: 34 (acima da média)
+- 2026-06-22: 35 (acima da média)
+- 2026-06-29: 29 (abaixo da média)
+- 2026-07-06: 19 (abaixo da média)
+- 2026-07-13: 102 (acima da média)
+- 2026-07-20: 26 (abaixo da média)
+- 2026-07-27: 21 (abaixo da média)
+- 2026-08-03: 22 (abaixo da média)
+- 2026-08-10: 21 (abaixo da média)
+- 2026-08-17: 24 (abaixo da média)
+- 2026-08-24: 27 (abaixo da média)
+- 2026-08-31: 22 (abaixo da média)
+
+As semanas com vendas fora do padrão são:
+
+- 2026-05-04: 34 (acima da média)
+- 2026-05-18: 40 (acima da média)
+- 2026-07-13: 102 (acima da média)
+
+Essas semanas tiveram vendas significativamente acima da média geral."
+"2026-11-07 18:58:30","llama3.2:3b",2,42,"media","anomalia",0,0,0.0,1,33.5,9.1,48.9,"","Após analisar os dados, é possível identificar um cliente com valor de compras muito diferente dos demais. O cliente com o valor de compras mais alto é Vitória Nunes Pereira, com um total de R$ 11.894,28.
+
+Isso é evidente ao comparar o valor de compras de Vitória Nunes Pereira com o valor de compras do cliente com o valor de compras mais baixo, que é Ana Ribeiro Becker, com um total de R$ 2.393,96.
+
+Além disso, é possível notar que Vitória Nunes Pereira tem um número muito alto de vendas, com 23 transações, o que sugere que ela é um cliente muito ativo e que compra frequentemente.
+
+Aqui estão os dados que sustentam essa resposta:
+
+* Id: 20
+* Nome: Vitória Nunes Pereira
+* Vendas: 23
+* Total: R$ 11.894,28
+* Id: 17
+* Nome: Ana Ribeiro Becker
+* Vendas: 7
+* Total: R$ 2.393,96
+
+Esses dados mostram que Vitória Nunes Pereira tem um valor de compras muito mais alto do que Ana Ribeiro Becker, e que ela é um cliente muito ativo."
+"2026-11-07 19:06:06","llama3.2:3b",2,43,"media","anomalia",0,0,0.186,1,456.0,5.8,48.9,"","Para identificar as vendas que têm desconto fora do padrão, precisamos analisar os dados fornecidos.
+
+Primeiramente, observamos que há dois tipos de descontos: descontos percentuais de 5% e descontos percentuais de 10%. 
+
+Vamos analisar cada venda:
+
+1. Venda 15: Desconto de 10% (10.0000). Valor subtotal: 1073,40. Valor total: 966,06. O desconto é de 107,34 (10% de 1073,40). O desconto é dentro do padrão.
+
+2. Venda 39: Desconto de 70% (70.0000). Valor subtotal: 656,70. Valor total: 197,01. O desconto é de 459,69 (70% de 656,70). O desconto é fora do padrão.
+
+3. Venda 60: Desconto de 5% (5.0000). Valor subtotal: 675,60. Valor total: 641,82. O desconto é de 33,78 (5% de 675,60). O desconto é dentro do padrão.
+
+4. Venda 75: Desconto de 5% (5.0000). Valor subtotal: 17,55. Valor total: 16,67. O desconto é de 0,88 (5% de 17,55). O desconto é dentro do padrão.
+
+5. Venda 120: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+6. Venda 150: Desconto de 5% (5.0000). Valor subtotal: 1414,50. Valor total: 1343,77. O desconto é de 70,73 (5% de 1414,50). O desconto é fora do padrão.
+
+7. Venda 180: Desconto de 10% (10.0000). Valor subtotal: 257,80. Valor total: 232,02. O desconto é de 25,78 (10% de 257,80). O desconto é dentro do padrão.
+
+8. Venda 195: Desconto de 10% (10.0000). Valor subtotal: 178,90. Valor total: 161,01. O desconto é de 17,89 (10% de 178,90). O desconto é dentro do padrão.
+
+9. Venda 210: Desconto de 5% (5.0000). Valor subtotal: 1024,50. Valor total: 973,27. O desconto é de 51,23 (5% de 1024,50). O desconto é fora do padrão.
+
+10. Venda 255: Desconto de 10% (10.0000). Valor subtotal: 1694,50. Valor total: 1525,05. O desconto é de 169,45 (10% de 1694,50). O desconto é fora do padrão.
+
+11. Venda 265: Desconto de 70% (70.0000). Valor subtotal: 755,60. Valor total: 226,68. O desconto é de 528,92 (70% de 755,60). O desconto é fora do padrão.
+
+12. Venda 270: Desconto de 5% (5.0000). Valor subtotal: 406,70. Valor total: 386,36. O desconto é de 20,34 (5% de 406,70). O desconto é dentro do padrão.
+
+13. Venda 300: Desconto de 5% (5.0000). Valor subtotal: 218,90. Valor total: 207,95. O desconto é de 10,95 (5% de 218,90). O desconto é dentro do padrão.
+
+14. Venda 315: Desconto de 5% (5.0000). Valor subtotal: 784,50. Valor total: 745,27. O desconto é de 39,23 (5% de 784,50). O desconto é dentro do padrão.
+
+15. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+16. Venda 450: Desconto de 5% (5.0000). Valor subtotal: 810,29. Valor total: 769,78. O desconto é de 40,51 (5% de 810,29). O desconto é dentro do padrão.
+
+17. Venda 480: Desconto de 5% (5.0000). Valor subtotal: 357,80. Valor total: 339,91. O desconto é de 17,89 (5% de 357,80). O desconto é dentro do padrão.
+
+18. Venda 495: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+19. Venda 510: Desconto de 5% (5.0000). Valor subtotal: 466,70. Valor total: 443,36. O desconto é de 23,34 (5% de 466,70). O desconto é dentro do padrão.
+
+20. Venda 570: Desconto de 5% (5.0000). Valor subtotal: 477,80. Valor total: 453,91. O desconto é de 23,89 (5% de 477,80). O desconto é dentro do padrão.
+
+21. Venda 588: Desconto de 60% (60.0000). Valor subtotal: 527,80. Valor total: 211,12. O desconto é de 316,68 (60% de 527,80). O desconto é fora do padrão.
+
+22. Venda 600: Desconto de 5% (5.0000). Valor subtotal: 208,90. Valor total: 198,45. O desconto é de 10,45 (5% de 208,90). O desconto é dentro do padrão.
+
+23. Venda 615: Desconto de 5% (5.0000). Valor subtotal: 835,60. Valor total: 793,82. O desconto é de 41,78 (5% de 835,60). O desconto é dentro do padrão.
+
+24. Venda 630: Desconto de 5% (5.0000). Valor subtotal: 865,60. Valor total: 822,32. O desconto é de 43,28 (5% de 865,60). O desconto é dentro do padrão.
+
+25. Venda 780: Desconto de 5% (5.0000). Valor subtotal: 1552,30. Valor total: 1474,68. O desconto é de 22,38 (5% de 1552,30). O desconto é dentro do padrão.
+
+26. Venda 795: Desconto de 5% (5.0000). Valor subtotal: 535,60. Valor total: 508,82. O desconto é de 26,78 (5% de 535,60). O desconto é dentro do padrão.
+
+27. Venda 810: Desconto de 5% (5.0000). Valor subtotal: 546,70. Valor total: 519,36. O desconto é de 27,34 (5% de 546,70). O desconto é dentro do padrão.
+
+28. Venda 825: Desconto de 5% (5.0000). Valor subtotal: 298,90. Valor total: 283,95. O desconto é de 14,95 (5% de 298,90). O desconto é dentro do padrão.
+
+29. Venda 855: Desconto de 10% (10.0000). Valor subtotal: 874,50. Valor total: 787,05. O desconto é de 87,45 (10% de 874,50). O desconto é fora do padrão.
+
+30. Venda 885: Desconto de 5% (5.0000). Valor subtotal: 327,80. Valor total: 311,41. O desconto é de 16,39 (5% de 327,80). O desconto é dentro do padrão.
+
+31. Venda 945: Desconto de 5% (5.0000). Valor subtotal: 446,70. Valor total: 424,36. O desconto é de 22,34 (5% de 446,70). O desconto é dentro do padrão.
+
+32. Venda 951: Desconto de 55% (55.0000). Valor subtotal: 1134,50. Valor total: 510,52. O desconto é de 623,98 (55% de 1134,50). O desconto é fora do padrão.
+
+33. Venda 960: Desconto de 5% (5.0000). Valor subtotal: 366,70. Valor total: 348,36. O desconto é de 18,34 (5% de 366,70). O desconto é dentro do padrão.
+
+34. Venda 975: Desconto de 5% (5.0000). Valor subtotal: 525,60. Valor total: 499,32. O desconto é de 26,28 (5% de 525,60). O desconto é dentro do padrão.
+
+35. Venda 1050: Desconto de 5% (5.0000). Valor subtotal: 586,70. Valor total: 557,36. O desconto é de 29,34 (5% de 586,70). O desconto é dentro do padrão.
+
+36. Venda 1125: Desconto de 5% (5.0000). Valor subtotal: 716,70. Valor total: 680,86. O desconto é de 35,84 (5% de 716,70). O desconto é dentro do padrão.
+
+37. Venda 1140: Desconto de 5% (5.0000). Valor subtotal: 238,90. Valor total: 226,95. O desconto é de 11,95 (5% de 238,90). O desconto é dentro do padrão.
+
+38. Venda 1155: Desconto de 5% (5.0000). Valor subtotal: 2061,20. Valor total: 1958,14. O desconto é de 103,06 (5% de 2061,20). O desconto é dentro do padrão.
+
+39. Venda 1170: Desconto de 5% (5.0000). Valor subtotal: 1462,30. Valor total: 1389,18. O desconto é de 73,12 (5% de 1462,30). O desconto é fora do padrão.
+
+40. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+Apenas 4 vendas apresentam descontos fora do padrão: Vendas 588, 265, 855 e 1170."
+"2026-11-07 19:07:15","llama3.2:3b",2,44,"dificil","anomalia",0,0,0.333,1,69.1,9.2,48.9,"","Para identificar itens vendidos por preços que não fazem sentido, precisamos analisar os preços de venda e os preços de custo para cada item.
+
+Aqui estão alguns exemplos de itens vendidos por preços que não fazem sentido:
+
+1. Item 394 com venda ID 394, produto variacao ID 185, valor unitario 44,20 e preço de custo 58,96. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+2. Item 400 com venda ID 400, produto variacao ID 223, valor unitario 38,90 e preço de custo 19,43. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+3. Item 450 com venda ID 450, produto variacao ID 101, valor unitario 84,69 e preço de custo 112,92. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+4. Item 640 com venda ID 640, produto variacao ID 217, valor unitario 358,90 e preço de custo 160,30. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+5. Item 720 com venda ID 720, produto variacao ID 212, valor unitario 358,90 e preço de custo 166,42. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+6. Item 880 com venda ID 880, produto variacao ID 200, valor unitario 238,90 e preço de custo 124,58. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+7. Item 960 com venda ID 960, produto variacao ID 137, valor unitario 198,90 e preço de custo 94,09. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+8. Item 1200 com venda ID 1200, produto variacao ID 98, valor unitario 98,90 e preço de custo 55,18. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+
+Esses são apenas alguns exemplos de itens vendidos por preços que não fazem sentido. É importante notar que os preços de venda podem variar devido a fatores como promoções, descontos e outras ofertas especiais."
+"2026-11-07 19:08:20","llama3.2:3b",2,45,"facil","anomalia",0,0,0.429,1,64.7,8.9,48.9,"","Após analisar os dados, identifiquei algumas inconsistências e variações no estoque:
+
+1. **Camiseta Estampada - Cinza - GG**: A quantidade de 65 (id: 13) é menor que a quantidade de 65 (id: 57) e 62 (id: 58). Isso pode indicar uma inconsistência na contagem de estoque.
+2. **Camisa Linho - Bege - GG**: A quantidade de 62 (id: 51) é menor que a quantidade de 62 (id: 50) e 62 (id: 51). Isso pode indicar uma inconsistência na contagem de estoque.
+3. **Camisa Xadrez - Bege - GG**: A quantidade de 35 (id: 59) é menor que a quantidade de 35 (id: 58) e 35 (id: 59). Isso pode indicar uma inconsistência na contagem de estoque.
+4. **Vestido Tubinho - Cinza - P**: A quantidade de 0 (id: 144) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+5. **Vestido Floral - Vermelho - G**: A quantidade de -2 (id: 151) é uma quantidade negativa, o que pode indicar uma falta de estoque ou um erro na contagem de estoque.
+6. **Jacarta Jeans - Rosa - GG**: A quantidade de 0 (id: 188) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+
+Além disso, observei que há alguns produtos com quantidades muito baixas ou nulas, como:
+
+* Camiseta Estampada - Cinza - GG (id: 13, 57, 58)
+* Camisa Linho - Bege - GG (id: 51, 50, 51)
+* Camisa Xadrez - Bege - GG (id: 59, 58, 59)
+* Vestido Tubinho - Cinza - P (id: 144)
+* Vestido Floral - Vermelho - G (id: 151)
+* Jacarta Jeans - Rosa - GG (id: 188)
+
+Essas variações podem indicar uma falta de estoque, uma quantidade muito baixa ou um erro na contagem de estoque. É importante investigar essas inconsistências e verificar a situação do estoque para tomar medidas corretivas."
+"2026-11-07 19:08:26","llama3.2:3b",3,1,"facil","texto_sql",1,1,1.0,1,4.3,9.7,48.9,"","SELECT COUNT(id) FROM clientes"
+"2026-11-07 19:08:35","llama3.2:3b",3,2,"facil","texto_sql",1,1,1.0,1,5.9,7.9,48.9,"","SELECT COUNT(v.id) FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 19:08:42","llama3.2:3b",3,3,"facil","texto_sql",1,1,1.0,1,5.7,8.6,48.9,"","SELECT COUNT(v.status_venda) FROM vendas v WHERE v.status_venda = 'CANCELADA'"
+"2026-11-07 19:08:52","llama3.2:3b",3,4,"facil","texto_sql",1,1,1.0,1,7.0,8.5,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 19:09:01","llama3.2:3b",3,5,"facil","texto_sql",1,1,1.0,1,6.8,8.5,48.9,"","SELECT AVG(v.valor_total) AS ticket_medio FROM vendas v WHERE v.status_venda = 'FINALIZADA'"
+"2026-11-07 19:09:08","llama3.2:3b",3,6,"facil","texto_sql",1,1,1.0,1,4.6,8.9,48.9,"","SELECT COUNT(DISTINCT p.id) FROM produtos p"
+"2026-11-07 19:09:15","llama3.2:3b",3,7,"facil","texto_sql",1,1,1.0,1,4.9,9.1,48.9,"","SELECT categoria FROM categorias ORDER BY categoria"
+"2026-11-07 19:09:22","llama3.2:3b",3,8,"facil","texto_sql",1,1,1.0,1,4.9,6.5,48.9,"","SELECT COUNT(f.id) FROM fornecedores f"
+"2026-11-07 19:09:31","llama3.2:3b",3,9,"facil","texto_sql",1,1,1.0,1,7.3,8.9,48.9,"","SELECT MAX(pv.preco) AS maior_preco FROM produto_variacoes pv JOIN produtos p ON p.id = pv.produto_id"
+"2026-11-07 19:09:39","llama3.2:3b",3,10,"facil","texto_sql",1,1,1.0,1,5.9,9.1,48.9,"","SELECT COUNT(*) FROM contas_receber WHERE status = 'ABERTA'"
+"2026-11-07 19:09:51","llama3.2:3b",3,11,"media","texto_sql",1,1,1.0,1,9.2,8.7,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%Y-%m') AS mes, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND YEAR(v.criado_em) = 2026 GROUP BY mes ORDER BY mes"
+"2026-11-07 19:10:08","llama3.2:3b",3,12,"media","texto_sql",0,1,1.0,2,14.8,8.1,48.9,"","SELECT e.uf, COUNT(*) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados e ON e.id = ci.estado_id GROUP BY e.uf"
+"2026-11-07 19:10:52","llama3.2:3b",3,13,"media","texto_sql",0,0,0.0,2,41.7,7.6,48.9,"","SELECT m.marca, SUM(vi.quantidade) AS quantidade_vendida FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY quantidade_vendida DESC LIMIT 5"
+"2026-11-07 19:11:15","llama3.2:3b",3,14,"media","texto_sql",0,0,0.0,1,20.6,7.6,48.9,"","SELECT m.marca, SUM(vi.valor_total) AS soma FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN marcas m ON m.id = p.marca_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY m.marca ORDER BY soma DESC LIMIT 1"
+"2026-11-07 19:11:26","llama3.2:3b",3,15,"media","texto_sql",0,0,0.0,1,8.5,8.7,48.9,"","SELECT COUNT(DISTINCT v.id) AS condicao_pagamento FROM vendas v JOIN condicoes_pagamentos cp ON v.condicao_pagamento_id = cp.id GROUP BY cp.id"
+"2026-11-07 19:11:39","llama3.2:3b",3,16,"media","texto_sql",0,0,0.0,1,10.5,8.7,48.9,"","SELECT SUM(c.valor_subtotal) AS valor_total FROM compras c JOIN condicoes_pagamentos cp ON cp.id = c.condicao_pagamento_id JOIN fornecedores f ON f.id = c.fornecedor_id WHERE c.status_compra = 'LANCADO'"
+"2026-11-07 19:12:07","llama3.2:3b",3,17,"media","texto_sql",0,0,0.0,3,26.1,7.8,48.9,"Unknown column 'c.cidade' in 'field list'","SELECT c.cidade, COUNT(c.id) FROM clientes c JOIN cidades ci ON ci.id = c.cidade_id JOIN estados es ON es.id = ci.estado_id GROUP BY ci.cidade HAVING COUNT(c.id) > 10"
+"2026-11-07 19:12:22","llama3.2:3b",3,18,"media","texto_sql",1,1,1.0,1,12.4,8.8,48.9,"","SELECT c.categoria, SUM(e.quantidade) AS estoque FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id JOIN marcas m ON m.id = p.marca_id GROUP BY c.categoria"
+"2026-11-07 19:12:34","llama3.2:3b",3,19,"media","texto_sql",1,1,1.0,1,10.5,8.7,48.9,"","SELECT SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2025-12-01' AND v.criado_em < '2026-01-01'"
+"2026-11-07 19:12:44","llama3.2:3b",3,20,"media","texto_sql",1,1,1.0,1,7.2,8.7,48.9,"","SELECT SUM(cr.valor_saldo) AS valor_total FROM contas_receber cr WHERE cr.status = 'ABERTA' AND cr.data_vencimento < '2026-11-07'"
+"2026-11-07 19:13:04","llama3.2:3b",3,21,"dificil","texto_sql",0,0,0.0,1,17.7,8.5,48.9,"","SELECT c.categoria, SUM(vi.valor_total - vi.quantidade * pv.preco_custo) AS margem_bruta FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01' GROUP BY c.categoria"
+"2026-11-07 19:13:17","llama3.2:3b",3,22,"dificil","texto_sql",0,0,0.0,1,10.9,8.8,48.9,"","SELECT c.nome_razaosocial, SUM(v.valor_total) AS valor_total FROM clientes c JOIN vendas v ON v.cliente_id = c.id WHERE v.status_venda = 'FINALIZADA' GROUP BY c.nome_razaosocial ORDER BY valor_total DESC LIMIT 3"
+"2026-11-07 19:13:29","llama3.2:3b",3,23,"dificil","texto_sql",1,1,1.0,1,9.7,7.7,48.9,"","SELECT SUM(CASE WHEN v.status_venda = 'CANCELADA' THEN 1 ELSE 0 END) / COUNT(v.id) * 100 AS porcentagem_vendas_canceladas FROM vendas v"
+"2026-11-07 19:14:35","llama3.2:3b",3,24,"dificil","texto_sql",0,0,0.0,3,63.4,6.6,48.9,"Table 'erp_loja.compras_como_venda' doesn't exist","SELECT c.nome_razaosocial FROM clientes c JOIN condicoes_pagamentos cp ON cp.id = c.tipo_pessoa JOIN compras ON compras.id = cp.compra_id JOIN compras_como_venda ON compras_como_venda.compra_id = compras.id JOIN vendas ON vendas.id = compras_como_venda.venda_id WHERE vendas.status_venda = 'FINALIZADA' AND vendas.criado_em >= '2026-08-01' AND vendas.criado_em < '2027-01-01' AND cp.condicao_pagamento = 'NAO_INFORMAR'"
+"2026-11-07 19:14:59","llama3.2:3b",3,25,"dificil","texto_sql",0,1,1.0,2,21.9,8.1,48.9,"","SELECT p.produto, pv.cor, pv.tamanho, e.quantidade FROM estoque e JOIN produto_variacoes pv ON pv.id = e.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id GROUP BY p.produto, pv.cor, pv.tamanho, e.quantidade HAVING SUM(e.quantidade) < 5"
+"2026-11-07 19:15:19","llama3.2:3b",3,26,"dificil","texto_sql",0,0,0.0,1,17.4,7.2,48.9,"","SELECT ((SUM(v.valor_total) - SUM(vi.valor_total)) / SUM(vi.valor_total)) * 100 AS crescimento FROM vendas v JOIN vendas_itens vi ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em BETWEEN '2025-11-01' AND '2025-12-31'"
+"2026-11-07 19:15:33","llama3.2:3b",3,27,"dificil","texto_sql",0,0,0.0,1,12.1,8.6,48.9,"","SELECT p.produto, SUM(vi.quantidade) AS quantidade FROM vendas_itens vi JOIN vendas v ON v.id = vi.venda_id JOIN produto_variacoes pv ON pv.id = vi.produto_variacao_id JOIN produtos p ON p.id = pv.produto_id JOIN categorias c ON c.id = p.categoria_id GROUP BY p.produto ORDER BY quantidade DESC LIMIT 1"
+"2026-11-07 19:15:49","llama3.2:3b",3,28,"dificil","texto_sql",0,0,0.0,1,14.0,8.7,48.9,"","SELECT SUM(v.valor_total) / COUNT(DISTINCT v.status_venda) AS media FROM vendas v JOIN clientes c ON c.id = v.cliente_id JOIN estados e ON e.id = c.cidade_id WHERE v.status_venda = 'FINALIZADA' AND v.criado_em >= '2026-01-01' AND v.criado_em < '2027-01-01'"
+"2026-11-07 19:16:04","llama3.2:3b",3,29,"dificil","texto_sql",0,0,0.0,1,12.1,7.5,48.9,"","SELECT DATE_FORMAT(v.criado_em, '%w') AS dia_semana, SUM(v.valor_total) AS faturamento FROM vendas v WHERE v.status_venda = 'FINALIZADA' GROUP BY DATE_FORMAT(v.criado_em, '%w') ORDER BY dia_semana"
+"2026-11-07 19:17:01","llama3.2:3b",3,30,"dificil","texto_sql",0,0,0.0,3,55.4,6.5,48.9,"Unknown column 'cr.status_venda' in 'field list'","SELECT SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) / SUM(CASE WHEN cr.status_venda = 'FINALIZADA' THEN cr.valor_saldo ELSE 0 END) * 100 AS percentual_aberto FROM contas_receber cr JOIN vendas v ON v.cliente_id = cr.cliente_id WHERE cr.data_vencimento < '2026-11-07'"
+"2026-11-07 19:17:13","llama3.2:3b",3,31,"facil","interpretacao",1,1,1.0,1,11.8,10.6,48.9,"","Para encontrar o mês com o maior faturamento e o valor correspondente, podemos analisar os dados fornecidos.
+
+O mês com o maior faturamento foi o mês de dezembro de 2025, com um faturamento de R$ 99079,88.
+
+Essa informação é baseada nos dados da tabela, que apresenta os faturamentos mensais de 01/11/2025 a 31/10/2026."
+"2026-11-07 19:17:31","llama3.2:3b",3,32,"facil","interpretacao",1,1,1.0,1,18.0,10.7,48.9,"","Para encontrar a categoria com o menor faturamento, precisamos comparar os valores da tabela.
+
+A categoria com o menor faturamento é os Acessórios, com um faturamento de R$ 7.975,80.
+
+Essa categoria está na linha 1 da tabela, com o id 1, e o faturamento é o valor 7975,80.
+
+Aqui está a tabela novamente para referência:
+
+categoria	faturamento
+Acessórios	7975.80
+Bermudas	57925.40
+Calças	157350.79
+Camisas	83764.30
+Camisetas	50695.50
+Jaquetas	201269.50
+Saias	82986.92
+Vestidos	129482.50"
+"2026-11-07 19:18:14","llama3.2:3b",3,33,"media","interpretacao",0,0,0.5,1,43.1,11.0,48.9,"","Para determinar a condição de pagamento mais usada e o percentual das vendas que ela representa, precisamos primeiro calcular o total de vendas para cada condição de pagamento.
+
+Vamos calcular o total de vendas para cada condição de pagamento:
+
+* Dinheiro à vista: 125
+* PIX à vista: 424
+* Débito à vista: 214
+* Crédito 1x: 294
+* Crédito 3x sem juros: 161
+* Crediário 2x: 91
+* Crediário 3x: 107
+
+Agora, vamos calcular o total de vendas para todas as condições de pagamento:
+
+Total de vendas = 125 + 424 + 214 + 294 + 161 + 91 + 107 = 1.250
+
+Agora, vamos calcular o percentual de cada condição de pagamento em relação ao total de vendas:
+
+* Dinheiro à vista: (125 / 1.250) x 100% ≈ 10%
+* PIX à vista: (424 / 1.250) x 100% ≈ 33,92%
+* Débito à vista: (214 / 1.250) x 100% ≈ 17,12%
+* Crédito 1x: (294 / 1.250) x 100% ≈ 23,52%
+* Crédito 3x sem juros: (161 / 1.250) x 100% ≈ 12,88%
+* Crediário 2x: (91 / 1.250) x 100% ≈ 7,28%
+* Crediário 3x: (107 / 1.250) x 100% ≈ 8,56%
+
+A condição de pagamento mais usada é o PIX à vista, com um total de 424 vendas, o que representa aproximadamente 33,92% do total de vendas.
+
+Portanto, a resposta é: a condição de pagamento PIX à vista foi a mais usada, representando aproximadamente 33,92% das vendas."
+"2026-11-07 19:18:30","llama3.2:3b",3,34,"media","interpretacao",1,1,1.0,1,15.5,11.0,48.9,"","Para calcular o percentual de clientes do Paraná (PR), precisamos saber o total de clientes e o número de clientes do Paraná.
+
+Primeiramente, vamos calcular o total de clientes:
+
+Total de clientes = 119 (PR) + 9 (RS) + 16 (SC) + 6 (SP) = 150
+
+Agora, vamos calcular o percentual de clientes do Paraná (PR):
+
+Percentual de PR = (Número de clientes do PR / Total de clientes) x 100
+= (119 / 150) x 100
+= 79,33%
+
+Portanto, aproximadamente 79,33% dos clientes são do Paraná (PR)."
+"2026-11-07 19:18:52","llama3.2:3b",3,35,"facil","interpretacao",0,0,0.0,1,22.3,10.8,48.9,"","Para calcular o total de vendas registradas, precisamos somar as vendas de todos os status.
+
+Vamos somar as vendas de cada status:
+
+- Vendas de status ABERTA: 7 vendas x R$ 4866,63 = R$ 34.061,61
+- Vendas de status FINALIZADA: 1416 vendas x R$ 748.980,17 = R$ 1.057.115.111,12
+- Vendas de status CANCELADA: 77 vendas x R$ 37.073,28 = R$ 2.846.111,16
+
+Agora, vamos somar esses valores:
+
+R$ 34.061,61 + R$ 1.057.115.111,12 + R$ 2.846.111,16 = R$ 1.058.916.288,89
+
+Portanto, o total de vendas registradas é de R$ 1.058.916.289."
+"2026-11-07 19:19:52","llama3.2:3b",3,36,"dificil","interpretacao",1,1,1.0,1,59.6,10.7,48.9,"","Para encontrar a categoria com a maior margem percentual, precisamos dividir a margem por faturamento para cada categoria e calcular o resultado em porcentagem.
+
+Vamos calcular a margem percentual para cada categoria:
+
+1. Acessórios:
+Margem: R$ 4.008,85
+Faturamento: R$ 7.975,80
+Margem percentual: (4.008,85 / 7.975,80) x 100% ≈ 50,35%
+
+2. Bermudas:
+Margem: R$ 28.937,70
+Faturamento: R$ 57.925,40
+Margem percentual: (28.937,70 / 57.925,40) x 100% ≈ 50,15%
+
+3. Calças:
+Margem: R$ 77.291,89
+Faturamento: R$ 157.350,79
+Margem percentual: (77.291,89 / 157.350,79) x 100% ≈ 49,04%
+
+4. Camisas:
+Margem: R$ 42.473,15
+Faturamento: R$ 83.764,30
+Margem percentual: (42.473,15 / 83.764,30) x 100% ≈ 50,59%
+
+5. Camisetas:
+Margem: R$ 25.584,00
+Faturamento: R$ 50.695,50
+Margem percentual: (25.584,00 / 50.695,50) x 100% ≈ 50,29%
+
+6. Jaquetas:
+Margem: R$ 100.052,74
+Faturamento: R$ 201.269,50
+Margem percentual: (100.052,74 / 201.269,50) x 100% ≈ 49,93%
+
+7. Saias:
+Margem: R$ 41.122,14
+Faturamento: R$ 82.986,92
+Margem percentual: (41.122,14 / 82.986,92) x 100% ≈ 49,55%
+
+8. Vestidos:
+Margem: R$ 65.133,71
+Faturamento: R$ 129.482,50
+Margem percentual: (65.133,71 / 129.482,50) x 100% ≈ 50,27%
+
+A categoria com a maior margem percentual é a Jaquetas, com uma margem percentual de aproximadamente 49,93%.
+
+Essa categoria tem a maior margem percentual porque a margem (R$ 100.052,74) é muito próxima do faturamento (R$ 201.269,50), o que indica que a Jaquetas é uma categoria muito rentável para a loja."
+"2026-11-07 19:20:10","llama3.2:3b",3,37,"media","resumo",0,0,0.0,1,17.8,11.3,48.9,"","Resumo Executivo:
+
+O faturamento mensal da loja de roupas apresentou uma evolução variada ao longo do período de 01/11/2025 a 31/10/2026. Em geral, o faturamento cresceu ao longo do ano, com picos em 2026-07 (88006,25 R$) e 2026-05 (72972,65 R$). No entanto, houve um declínio nos meses de 2026-02 (30789,35 R$) e 2026-09 (42738,87 R$). O faturamento mensal apresentou um aumento significativo nos meses de 2026-01 a 2026-10, com exceção do mês de 2026-02."
+"2026-11-07 19:20:26","llama3.2:3b",3,38,"media","resumo",1,1,1.0,1,16.6,11.4,48.9,"","Resumo Executivo:
+
+O desempenho de vendas por categoria apresentou variações significativas ao longo do período de 01/11/2025 a 31/10/2026. As categorias mais bem-sucedidas foram as Calças, com faturamento de R$ 157.350.79 e margem de 77.291.89%, seguidas pelas Jaquetas, com faturamento de R$ 201.269.50 e margem de 100.052.74%. As categorias com desempenho menos bom foram as Camisetas e Acessórios, com faturamento de R$ 50.695,50 e R$ 7.975,80, respectivamente."
+"2026-11-07 19:20:39","llama3.2:3b",3,39,"media","resumo",0,0,0.333,1,13.2,11.6,48.9,"","Resumo Executivo:
+
+A situação das contas a receber está sob controle, com apenas 1 conta a receber (id: 406) que foi recebida em 01/11/2025. A conta de id: 406 tem um valor original de R$ 86.857,16 e um saldo de R$ 0,00, indicando que a conta foi paga integralmente. As contas a receber com status ""ABERTA"" têm um total de 407 contas, mas todas elas estão pagas, pois o saldo é igual ao valor original."
+"2026-11-07 19:20:57","llama3.2:3b",3,40,"dificil","resumo",0,0,0.75,1,17.3,11.4,48.9,"","Resumo Executivo:
+
+O período de 01/11/2025 a 31/10/2026 apresentou resultados comerciais significativos. 
+
+- A venda total foi de R$ 1.046.820,00, com 1.844 transações (7 ABERTA + 1416 FINALIZADA + 77 CANCELADA).
+- O valor médio de cada ticket foi de R$ 528,94 (FINALIZADA), com um desconto médio de R$ 63,67 (FINALIZADA).
+- A maior despesa foi em produtos com descontos, com um total de R$ 224.70 (FINALIZADA).
+
+Esses resultados indicam uma boa performance comercial, com vendas significativas e um valor médio de cada transação razoável."
+"2026-11-07 19:21:53","llama3.2:3b",3,41,"media","anomalia",1,1,1.0,1,56.1,10.6,48.9,"","Para identificar uma semana com volume de vendas fora do padrão, precisamos analisar os dados e compará-los com o padrão geral.
+
+Primeiramente, vamos calcular a média das vendas para o período de 1 ano, considerando apenas as semanas com vendas:
+
+Vendas totais: 34 + 30 + 40 + 27 + 19 + 21 + 34 + 35 + 29 + 19 + 102 + 26 + 21 + 22 + 21 + 24 + 27 + 22 = 501
+
+Número de semanas: 18
+
+Média das vendas: 501 / 18 ≈ 27,72
+
+Agora, vamos comparar cada semana com a média:
+
+- 2026-05-04: 34 (acima da média)
+- 2026-05-11: 30 (abaixo da média)
+- 2026-05-18: 40 (acima da média)
+- 2026-05-25: 27 (abaixo da média)
+- 2026-06-01: 19 (abaixo da média)
+- 2026-06-08: 21 (abaixo da média)
+- 2026-06-15: 34 (acima da média)
+- 2026-06-22: 35 (acima da média)
+- 2026-06-29: 29 (abaixo da média)
+- 2026-07-06: 19 (abaixo da média)
+- 2026-07-13: 102 (acima da média)
+- 2026-07-20: 26 (abaixo da média)
+- 2026-07-27: 21 (abaixo da média)
+- 2026-08-03: 22 (abaixo da média)
+- 2026-08-10: 21 (abaixo da média)
+- 2026-08-17: 24 (abaixo da média)
+- 2026-08-24: 27 (abaixo da média)
+- 2026-08-31: 22 (abaixo da média)
+
+As semanas com vendas fora do padrão são:
+
+- 2026-05-04: 34 (acima da média)
+- 2026-05-18: 40 (acima da média)
+- 2026-07-13: 102 (acima da média)
+
+Essas semanas tiveram vendas significativamente acima da média geral."
+"2026-11-07 19:22:26","llama3.2:3b",3,42,"media","anomalia",0,0,0.0,1,33.1,9.1,48.9,"","Após analisar os dados, é possível identificar um cliente com valor de compras muito diferente dos demais. O cliente com o valor de compras mais alto é Vitória Nunes Pereira, com um total de R$ 11.894,28.
+
+Isso é evidente ao comparar o valor de compras de Vitória Nunes Pereira com o valor de compras do cliente com o valor de compras mais baixo, que é Ana Ribeiro Becker, com um total de R$ 2.393,96.
+
+Além disso, é possível notar que Vitória Nunes Pereira tem um número muito alto de vendas, com 23 transações, o que sugere que ela é um cliente muito ativo e que compra frequentemente.
+
+Aqui estão os dados que sustentam essa resposta:
+
+* Id: 20
+* Nome: Vitória Nunes Pereira
+* Vendas: 23
+* Total: R$ 11.894,28
+* Id: 17
+* Nome: Ana Ribeiro Becker
+* Vendas: 7
+* Total: R$ 2.393,96
+
+Esses dados mostram que Vitória Nunes Pereira tem um valor de compras muito mais alto do que Ana Ribeiro Becker, e que ela é um cliente muito ativo."
+"2026-11-07 19:30:00","llama3.2:3b",3,43,"media","anomalia",0,0,0.186,1,454.0,5.8,48.9,"","Para identificar as vendas que têm desconto fora do padrão, precisamos analisar os dados fornecidos.
+
+Primeiramente, observamos que há dois tipos de descontos: descontos percentuais de 5% e descontos percentuais de 10%. 
+
+Vamos analisar cada venda:
+
+1. Venda 15: Desconto de 10% (10.0000). Valor subtotal: 1073,40. Valor total: 966,06. O desconto é de 107,34 (10% de 1073,40). O desconto é dentro do padrão.
+
+2. Venda 39: Desconto de 70% (70.0000). Valor subtotal: 656,70. Valor total: 197,01. O desconto é de 459,69 (70% de 656,70). O desconto é fora do padrão.
+
+3. Venda 60: Desconto de 5% (5.0000). Valor subtotal: 675,60. Valor total: 641,82. O desconto é de 33,78 (5% de 675,60). O desconto é dentro do padrão.
+
+4. Venda 75: Desconto de 5% (5.0000). Valor subtotal: 17,55. Valor total: 16,67. O desconto é de 0,88 (5% de 17,55). O desconto é dentro do padrão.
+
+5. Venda 120: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+6. Venda 150: Desconto de 5% (5.0000). Valor subtotal: 1414,50. Valor total: 1343,77. O desconto é de 70,73 (5% de 1414,50). O desconto é fora do padrão.
+
+7. Venda 180: Desconto de 10% (10.0000). Valor subtotal: 257,80. Valor total: 232,02. O desconto é de 25,78 (10% de 257,80). O desconto é dentro do padrão.
+
+8. Venda 195: Desconto de 10% (10.0000). Valor subtotal: 178,90. Valor total: 161,01. O desconto é de 17,89 (10% de 178,90). O desconto é dentro do padrão.
+
+9. Venda 210: Desconto de 5% (5.0000). Valor subtotal: 1024,50. Valor total: 973,27. O desconto é de 51,23 (5% de 1024,50). O desconto é fora do padrão.
+
+10. Venda 255: Desconto de 10% (10.0000). Valor subtotal: 1694,50. Valor total: 1525,05. O desconto é de 169,45 (10% de 1694,50). O desconto é fora do padrão.
+
+11. Venda 265: Desconto de 70% (70.0000). Valor subtotal: 755,60. Valor total: 226,68. O desconto é de 528,92 (70% de 755,60). O desconto é fora do padrão.
+
+12. Venda 270: Desconto de 5% (5.0000). Valor subtotal: 406,70. Valor total: 386,36. O desconto é de 20,34 (5% de 406,70). O desconto é dentro do padrão.
+
+13. Venda 300: Desconto de 5% (5.0000). Valor subtotal: 218,90. Valor total: 207,95. O desconto é de 10,95 (5% de 218,90). O desconto é dentro do padrão.
+
+14. Venda 315: Desconto de 5% (5.0000). Valor subtotal: 784,50. Valor total: 745,27. O desconto é de 39,23 (5% de 784,50). O desconto é dentro do padrão.
+
+15. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+16. Venda 450: Desconto de 5% (5.0000). Valor subtotal: 810,29. Valor total: 769,78. O desconto é de 40,51 (5% de 810,29). O desconto é dentro do padrão.
+
+17. Venda 480: Desconto de 5% (5.0000). Valor subtotal: 357,80. Valor total: 339,91. O desconto é de 17,89 (5% de 357,80). O desconto é dentro do padrão.
+
+18. Venda 495: Desconto de 5% (5.0000). Valor subtotal: 596,70. Valor total: 566,86. O desconto é de 29,84 (5% de 596,70). O desconto é dentro do padrão.
+
+19. Venda 510: Desconto de 5% (5.0000). Valor subtotal: 466,70. Valor total: 443,36. O desconto é de 23,34 (5% de 466,70). O desconto é dentro do padrão.
+
+20. Venda 570: Desconto de 5% (5.0000). Valor subtotal: 477,80. Valor total: 453,91. O desconto é de 23,89 (5% de 477,80). O desconto é dentro do padrão.
+
+21. Venda 588: Desconto de 60% (60.0000). Valor subtotal: 527,80. Valor total: 211,12. O desconto é de 316,68 (60% de 527,80). O desconto é fora do padrão.
+
+22. Venda 600: Desconto de 5% (5.0000). Valor subtotal: 208,90. Valor total: 198,45. O desconto é de 10,45 (5% de 208,90). O desconto é dentro do padrão.
+
+23. Venda 615: Desconto de 5% (5.0000). Valor subtotal: 835,60. Valor total: 793,82. O desconto é de 41,78 (5% de 835,60). O desconto é dentro do padrão.
+
+24. Venda 630: Desconto de 5% (5.0000). Valor subtotal: 865,60. Valor total: 822,32. O desconto é de 43,28 (5% de 865,60). O desconto é dentro do padrão.
+
+25. Venda 780: Desconto de 5% (5.0000). Valor subtotal: 1552,30. Valor total: 1474,68. O desconto é de 22,38 (5% de 1552,30). O desconto é dentro do padrão.
+
+26. Venda 795: Desconto de 5% (5.0000). Valor subtotal: 535,60. Valor total: 508,82. O desconto é de 26,78 (5% de 535,60). O desconto é dentro do padrão.
+
+27. Venda 810: Desconto de 5% (5.0000). Valor subtotal: 546,70. Valor total: 519,36. O desconto é de 27,34 (5% de 546,70). O desconto é dentro do padrão.
+
+28. Venda 825: Desconto de 5% (5.0000). Valor subtotal: 298,90. Valor total: 283,95. O desconto é de 14,95 (5% de 298,90). O desconto é dentro do padrão.
+
+29. Venda 855: Desconto de 10% (10.0000). Valor subtotal: 874,50. Valor total: 787,05. O desconto é de 87,45 (10% de 874,50). O desconto é fora do padrão.
+
+30. Venda 885: Desconto de 5% (5.0000). Valor subtotal: 327,80. Valor total: 311,41. O desconto é de 16,39 (5% de 327,80). O desconto é dentro do padrão.
+
+31. Venda 945: Desconto de 5% (5.0000). Valor subtotal: 446,70. Valor total: 424,36. O desconto é de 22,34 (5% de 446,70). O desconto é dentro do padrão.
+
+32. Venda 951: Desconto de 55% (55.0000). Valor subtotal: 1134,50. Valor total: 510,52. O desconto é de 623,98 (55% de 1134,50). O desconto é fora do padrão.
+
+33. Venda 960: Desconto de 5% (5.0000). Valor subtotal: 366,70. Valor total: 348,36. O desconto é de 18,34 (5% de 366,70). O desconto é dentro do padrão.
+
+34. Venda 975: Desconto de 5% (5.0000). Valor subtotal: 525,60. Valor total: 499,32. O desconto é de 26,28 (5% de 525,60). O desconto é dentro do padrão.
+
+35. Venda 1050: Desconto de 5% (5.0000). Valor subtotal: 586,70. Valor total: 557,36. O desconto é de 29,34 (5% de 586,70). O desconto é dentro do padrão.
+
+36. Venda 1125: Desconto de 5% (5.0000). Valor subtotal: 716,70. Valor total: 680,86. O desconto é de 35,84 (5% de 716,70). O desconto é dentro do padrão.
+
+37. Venda 1140: Desconto de 5% (5.0000). Valor subtotal: 238,90. Valor total: 226,95. O desconto é de 11,95 (5% de 238,90). O desconto é dentro do padrão.
+
+38. Venda 1155: Desconto de 5% (5.0000). Valor subtotal: 2061,20. Valor total: 1958,14. O desconto é de 103,06 (5% de 2061,20). O desconto é dentro do padrão.
+
+39. Venda 1170: Desconto de 5% (5.0000). Valor subtotal: 1462,30. Valor total: 1389,18. O desconto é de 73,12 (5% de 1462,30). O desconto é fora do padrão.
+
+40. Venda 420: Desconto de 5% (5.0000). Valor subtotal: 1442,30. Valor total: 1370,18. O desconto é de 72,12 (5% de 1442,30). O desconto é fora do padrão.
+
+Apenas 4 vendas apresentam descontos fora do padrão: Vendas 588, 265, 855 e 1170."
+"2026-11-07 19:31:11","llama3.2:3b",3,44,"dificil","anomalia",0,0,0.333,1,71.2,9.0,48.9,"","Para identificar itens vendidos por preços que não fazem sentido, precisamos analisar os preços de venda e os preços de custo para cada item.
+
+Aqui estão alguns exemplos de itens vendidos por preços que não fazem sentido:
+
+1. Item 394 com venda ID 394, produto variacao ID 185, valor unitario 44,20 e preço de custo 58,96. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+2. Item 400 com venda ID 400, produto variacao ID 223, valor unitario 38,90 e preço de custo 19,43. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+3. Item 450 com venda ID 450, produto variacao ID 101, valor unitario 84,69 e preço de custo 112,92. O preço de venda é menor que o preço de custo, o que não é comum em uma loja de roupas.
+4. Item 640 com venda ID 640, produto variacao ID 217, valor unitario 358,90 e preço de custo 160,30. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+5. Item 720 com venda ID 720, produto variacao ID 212, valor unitario 358,90 e preço de custo 166,42. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+6. Item 880 com venda ID 880, produto variacao ID 200, valor unitario 238,90 e preço de custo 124,58. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+7. Item 960 com venda ID 960, produto variacao ID 137, valor unitario 198,90 e preço de custo 94,09. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+8. Item 1200 com venda ID 1200, produto variacao ID 98, valor unitario 98,90 e preço de custo 55,18. O preço de venda é maior que o preço de custo, o que não é comum em uma loja de roupas.
+
+Esses são apenas alguns exemplos de itens vendidos por preços que não fazem sentido. É importante notar que os preços de venda podem variar devido a fatores como promoções, descontos e outras ofertas especiais."
+"2026-11-07 19:32:16","llama3.2:3b",3,45,"facil","anomalia",0,0,0.429,1,64.8,8.9,48.9,"","Após analisar os dados, identifiquei algumas inconsistências e variações no estoque:
+
+1. **Camiseta Estampada - Cinza - GG**: A quantidade de 65 (id: 13) é menor que a quantidade de 65 (id: 57) e 62 (id: 58). Isso pode indicar uma inconsistência na contagem de estoque.
+2. **Camisa Linho - Bege - GG**: A quantidade de 62 (id: 51) é menor que a quantidade de 62 (id: 50) e 62 (id: 51). Isso pode indicar uma inconsistência na contagem de estoque.
+3. **Camisa Xadrez - Bege - GG**: A quantidade de 35 (id: 59) é menor que a quantidade de 35 (id: 58) e 35 (id: 59). Isso pode indicar uma inconsistência na contagem de estoque.
+4. **Vestido Tubinho - Cinza - P**: A quantidade de 0 (id: 144) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+5. **Vestido Floral - Vermelho - G**: A quantidade de -2 (id: 151) é uma quantidade negativa, o que pode indicar uma falta de estoque ou um erro na contagem de estoque.
+6. **Jacarta Jeans - Rosa - GG**: A quantidade de 0 (id: 188) é a única quantidade registrada para esse produto, o que pode indicar uma falta de estoque ou uma quantidade muito baixa.
+
+Além disso, observei que há alguns produtos com quantidades muito baixas ou nulas, como:
+
+* Camiseta Estampada - Cinza - GG (id: 13, 57, 58)
+* Camisa Linho - Bege - GG (id: 51, 50, 51)
+* Camisa Xadrez - Bege - GG (id: 59, 58, 59)
+* Vestido Tubinho - Cinza - P (id: 144)
+* Vestido Floral - Vermelho - G (id: 151)
+* Jacarta Jeans - Rosa - GG (id: 188)
+
+Essas variações podem indicar uma falta de estoque, uma quantidade muito baixa ou um erro na contagem de estoque. É importante investigar essas inconsistências e verificar a situação do estoque para tomar medidas corretivas."

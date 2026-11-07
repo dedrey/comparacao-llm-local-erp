@@ -4,7 +4,7 @@ Estudo que compara modelos de IA rodando localmente (via [Ollama](https://ollama
 
 Projeto acadêmico do curso de Sistemas de Informação.
 
-> Em andamento: base de dados, perguntas e interface prontas; benchmark e análise estatística em desenvolvimento.
+> Em andamento: base de dados, perguntas, interface e script de benchmark prontos; rodadas completas e análise estatística em desenvolvimento.
 
 ## O que o estudo mede
 
@@ -40,7 +40,7 @@ Intel i5-3330 (sem AVX2), GTX 1060 3GB, 12GB de RAM, Windows 10. Os detalhes e o
 2. Baixe os modelos: `ollama pull qwen2.5-coder:3b` e `ollama pull llama3.2:3b` (e os demais da tabela).
 3. Crie o banco: `mysql -u root -p --default-character-set=utf8mb4 < banco/schema.sql` e depois o mesmo com `banco/dados.sql` (para gerar de novo: `python banco/gerar_dados.py`).
 4. Copie `.env.example` para `.env` e preencha.
-5. Rode o benchmark (`scripts/benchmark.py`) e depois a análise (`scripts/analise.py`).
+5. Rode o benchmark: `python scripts/benchmark.py` (detalhes em [docs/metodologia.md](docs/metodologia.md)). A análise (`scripts/analise.py`) vem na próxima etapa.
 
 O `.env` fica fora do repositório. Nunca faça commit dele.
 
@@ -70,7 +70,7 @@ Modelos de 3B ainda erram a lógica em parte das perguntas (o SQL roda, mas resp
 | `banco/` | schema do ERP e dados fictícios |
 | `perguntas/` | perguntas com SQL-gabarito e nível de dificuldade |
 | `prompts/` | prompt, schema resumido e prompt de correção |
-| `scripts/` | interface web (`app.py`), terminal (`perguntar.py`), núcleo compartilhado (`nucleo.py`); depois benchmark e análise |
+| `scripts/` | interface web (`app.py`), terminal (`perguntar.py`), benchmark (`benchmark.py`) e núcleo compartilhado (`nucleo.py`) |
 | `resultados/` | CSVs brutos de cada rodada, tabelas e gráficos |
 | `relatorio/` | relatório final |
 

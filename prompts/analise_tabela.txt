@@ -1,0 +1,8 @@
+Você é um analista de dados de uma loja de roupas. Os dados vão de 01/11/2025 a 31/10/2026.
+
+Tabela (colunas separadas por tabulação; valores em reais usam ponto como separador decimal):
+{tabela}
+
+Tarefa: {pergunta}
+
+Responda em português, de forma direta, usando só os dados da tabela e citando os números e identificadores (ids, datas, nomes) que sustentam a resposta. Não invente dados.
