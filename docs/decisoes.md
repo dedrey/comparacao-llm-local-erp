@@ -73,5 +73,8 @@ Foi incluído por ser treinado para código e SQL e caber na GPU (1,9GB). Nas 30
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | llama3.2:3b | 12/30 | 13/30 | 9/10 | 2/10 | 2/10 | ~10 | 51% / 49% |
 | qwen2.5-coder:3b | 17/30 | 18/30 | 9/10 | 5/10 | 4/10 | ~15 | 40% / 60% |
+| qwen2.5-coder:3b, autocorreção com dica | 17/30 | 20/30 | 9/10 | 6/10 | 5/10 | ~15 | 40% / 60% |
+
+A dica de apelido recuperou as perguntas 17 e 25, que antes falhavam nas 3 tentativas.
 
 O llama rodou com uma versão anterior do prompt, então os números não são diretamente comparáveis. A comparação oficial será feita pelo script de benchmark, com o prompt congelado e 3 a 5 rodadas.
