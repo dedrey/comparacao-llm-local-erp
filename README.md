@@ -21,10 +21,10 @@ Tarefas avaliadas: texto→SQL, interpretação de tabela, resumo executivo e de
 | --- | --- |
 | `qwen2.5-coder:3b` | especializado em código; padrão da interface |
 | `llama3.2:3b` | baseline |
-| `phi4-mini` | raciocínio e saída estruturada |
-| `qwen3.5:4b` | maior que a VRAM, roda com offload (modo thinking desligado) |
-| `gemma4:e2b` | modelo do Google |
-| `qwen3.5:2b-q4_K_M` | opcional, efeito do tamanho na mesma família |
+| `phi4-mini:3.8b-q4_K_M` | raciocínio e saída estruturada |
+| `qwen3.5:4b-q4_K_M` | maior que a VRAM, roda com offload (modo thinking desligado) |
+| `gemma4:e2b-it-q4_K_M` | modelo do Google (modo thinking desligado) |
+| `qwen3.5:2b-q4_K_M` | efeito do tamanho na mesma família |
 
 Todos rodam com temperatura 0 e o mesmo prompt.
 
@@ -40,7 +40,8 @@ Intel i5-3330 (sem AVX2), GTX 1060 3GB, 12GB de RAM, Windows 10. Os detalhes e o
 2. Baixe os modelos: `ollama pull qwen2.5-coder:3b` e `ollama pull llama3.2:3b` (e os demais da tabela).
 3. Crie o banco: `mysql -u root -p --default-character-set=utf8mb4 < banco/schema.sql` e depois o mesmo com `banco/dados.sql` (para gerar de novo: `python banco/gerar_dados.py`).
 4. Copie `.env.example` para `.env` e preencha.
-5. Rode o benchmark: `python scripts/benchmark.py` (detalhes em [docs/metodologia.md](docs/metodologia.md)). A análise (`scripts/analise.py`) vem na próxima etapa.
+5. Rode o benchmark: `python scripts/benchmark.py --modelos <tags separadas por vírgula>` (sem `--modelos`, roda o qwen2.5-coder e o llama; detalhes em [docs/metodologia.md](docs/metodologia.md)).
+6. Rode a análise estatística, que precisa de scipy e matplotlib numa `.venv`: `python -m venv .venv`, `.venv\Scripts\python -m pip install -r requirements.txt` e `.venv\Scripts\python scripts/analise.py`. As tabelas vão para `resultados/tabelas/` (com um resumo em `resumo.md`) e os gráficos para `resultados/graficos/`.
 
 O `.env` fica fora do repositório. Nunca faça commit dele.
 
@@ -70,7 +71,7 @@ Modelos de 3B ainda erram a lógica em parte das perguntas (o SQL roda, mas resp
 | `banco/` | schema do ERP e dados fictícios |
 | `perguntas/` | perguntas com SQL-gabarito e nível de dificuldade |
 | `prompts/` | prompt, schema resumido e prompt de correção |
-| `scripts/` | interface web (`app.py`), terminal (`perguntar.py`), benchmark (`benchmark.py`) e núcleo compartilhado (`nucleo.py`) |
+| `scripts/` | interface web (`app.py`), terminal (`perguntar.py`), benchmark (`benchmark.py`), análise estatística (`analise.py`) e núcleo compartilhado (`nucleo.py`) |
 | `resultados/` | CSVs brutos de cada rodada, tabelas e gráficos |
 | `relatorio/` | relatório final |
 

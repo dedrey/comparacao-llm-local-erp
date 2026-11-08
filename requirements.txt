@@ -1,0 +1,3 @@
+# Só para a análise estatística (scripts/analise.py). O benchmark usa apenas a biblioteca padrão.
+scipy==1.18.1
+matplotlib==3.11.2

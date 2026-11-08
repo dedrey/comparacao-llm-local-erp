@@ -1,0 +1,16 @@
+Modelo A,Modelo B,Só A acertou,Só B acertou,p,p (Bonferroni),Significativo
+gemma4 e2b,qwen2.5-coder 3b,5,4,"1,000","1,000",não
+gemma4 e2b,llama3.2 3b,6,2,"0,289","1,000",não
+gemma4 e2b,qwen3.5 4b,9,3,"0,146","1,000",não
+gemma4 e2b,phi4-mini 3.8b,9,1,"0,021","0,322",não
+gemma4 e2b,qwen3.5 2b,12,1,"0,003","0,051",não
+qwen2.5-coder 3b,llama3.2 3b,6,3,"0,508","1,000",não
+qwen2.5-coder 3b,qwen3.5 4b,7,2,"0,180","1,000",não
+qwen2.5-coder 3b,phi4-mini 3.8b,8,1,"0,039","0,586",não
+qwen2.5-coder 3b,qwen3.5 2b,11,1,"0,006","0,095",não
+llama3.2 3b,qwen3.5 4b,7,5,"0,774","1,000",não
+llama3.2 3b,phi4-mini 3.8b,7,3,"0,344","1,000",não
+llama3.2 3b,qwen3.5 2b,9,2,"0,065","0,981",não
+qwen3.5 4b,phi4-mini 3.8b,5,3,"0,727","1,000",não
+qwen3.5 4b,qwen3.5 2b,9,4,"0,267","1,000",não
+phi4-mini 3.8b,qwen3.5 2b,6,3,"0,508","1,000",não

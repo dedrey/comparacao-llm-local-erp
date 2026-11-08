@@ -68,6 +68,19 @@ Os gabaritos foram conferidos no banco: todos executam, nenhum volta vazio e os 
 
 Os gráficos principais são boxplots de tempo por modelo e barras de acerto por nível. Tudo é gerado por `scripts/analise.py` em `resultados/tabelas/` e `resultados/graficos/`.
 
+- **Unidade de análise: a pergunta.** As 3 rodadas de cada par (modelo, pergunta) viram um valor só: o acerto é o da maioria das rodadas, a nota é a média e o tempo é a mediana. Assim os modelos ficam pareados pela pergunta.
+- **Acerto**: Cochran e McNemar usam as 30 perguntas de texto→SQL, com o acerto após a autocorreção. O McNemar é exato (binomial nos pares discordantes).
+- **Tempo**: Friedman e Wilcoxon usam as 45 perguntas. **Notas**: usam as 15 perguntas sem SQL.
+- **Intervalos de confiança de 95%**: Wilson para proporções e bootstrap percentil (10.000 reamostragens, semente 2026) para médias e medianas.
+- **Bonferroni**: o p de cada comparação par a par é multiplicado por 15 (6 modelos, 15 pares).
+- O `% na GPU` do gemma4 vem do nvidia-smi (~1,8GB de 4,6GB), porque o `ollama ps` informa errado para esse modelo.
+
+```bash
+python -m venv .venv
+.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python scripts/analise.py
+```
+
 ## Nota das tarefas sem SQL
 
 A nota é automática e reproduzível, calculada a partir da coluna `pontos_chave` do CSV:

@@ -1,0 +1,16 @@
+Modelo A,Modelo B,Mediana de A − B,p,p (Bonferroni),Significativo
+gemma4 e2b,qwen2.5-coder 3b,"0,15","0,053","0,789",não
+gemma4 e2b,llama3.2 3b,"0,00","0,260","1,000",não
+gemma4 e2b,qwen3.5 4b,"0,00","0,173","1,000",não
+gemma4 e2b,phi4-mini 3.8b,"0,00","0,767","1,000",não
+gemma4 e2b,qwen3.5 2b,"0,20","0,029","0,440",não
+qwen2.5-coder 3b,llama3.2 3b,"0,00","0,241","1,000",não
+qwen2.5-coder 3b,qwen3.5 4b,"-0,33","0,013","0,190",não
+qwen2.5-coder 3b,phi4-mini 3.8b,"0,00","0,283","1,000",não
+qwen2.5-coder 3b,qwen3.5 2b,"0,00","0,932","1,000",não
+llama3.2 3b,qwen3.5 4b,"0,00","0,018","0,269",não
+llama3.2 3b,phi4-mini 3.8b,"0,00","0,859","1,000",não
+llama3.2 3b,qwen3.5 2b,"0,00","0,109","1,000",não
+qwen3.5 4b,phi4-mini 3.8b,"0,00","0,201","1,000",não
+qwen3.5 4b,qwen3.5 2b,"0,33","0,005","0,075",não
+phi4-mini 3.8b,qwen3.5 2b,"0,00","0,139","1,000",não
